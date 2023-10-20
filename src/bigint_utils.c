@@ -36,10 +36,8 @@ void bigint_from_hex(bigint *integer, const char *hex, u32 h_len, bool negative)
         integer->words[i >> 3] = (u32) strtoll(chunk, NULL, 16);
     }
 
-    if(negative) {
+    if(negative)
         bigint_complement(integer);
-        integer->words[BIGINT_MAX_WORDS - 1] = 1 << 31;
-    }
 }
 
 void bigint_print(const bigint* integer) {
@@ -63,6 +61,16 @@ void bigint_unsigned_print(const bigint *integer) {
 
 void bigint_copy(bigint *integer, const bigint *src) {
     *integer = *src;
+}
+
+int bigint_compare(const bigint *a,const bigint *b) {
+    bigint cmp;
+    bigint_subtract(&cmp, a, b);
+    if(bigint_is_negative(&cmp))
+        return -1;
+    if(bigint_is_zero(&cmp))
+        return 0;
+    return 1;
 }
 
 bool bigint_is_zero(const bigint *integer) {

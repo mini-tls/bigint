@@ -31,3 +31,49 @@ void bigint_subtract(bigint *integer, const bigint *a, const bigint *b) {
 
     bigint_copy(integer, &bdiff);
 }
+
+void bigint_shift_left(bigint *integer, u32 bits) {
+    bigint tmp;
+    bigint_set_zero(&tmp);
+
+    if(bits > BIGINT_WORD_SIZE) {
+        u32 wordshift = bits / BIGINT_WORD_SIZE;
+        for(int i = BIGINT_MAX_WORDS - 1; i >= wordshift; i--)
+            tmp.words[i] = integer->words[i - wordshift];
+
+        bits %= BIGINT_WORD_SIZE;
+    } else {
+        bigint_copy(&tmp, integer);
+    }
+
+    if(bits != 0){
+        for(int i = BIGINT_MAX_WORDS - 1; i > 0; i--)
+            tmp.words[i] = (tmp.words[i] << bits) | (tmp.words[i - 1] >> (BIGINT_WORD_SIZE - bits));
+        tmp.words[0] <<= bits;
+    }
+
+    bigint_copy(integer, &tmp);
+}
+
+void bigint_shift_right(bigint *integer, u32 bits) {
+    bigint tmp;
+    bigint_set_zero(&tmp);
+
+    if(bits > BIGINT_WORD_SIZE) {
+        u32 wordshift = bits / BIGINT_WORD_SIZE;
+        for(int i = 0; i < BIGINT_MAX_WORDS - wordshift; i++)
+            tmp.words[i] = integer->words[i + wordshift];
+
+        bits %= BIGINT_WORD_SIZE;
+    } else {
+        bigint_copy(&tmp, integer);
+    }
+
+    if(bits != 0){
+        for(int i = 0 ; i < BIGINT_MAX_WORDS - 1; i++)
+            tmp.words[i] = (tmp.words[i] >> bits) | (tmp.words[i + 1] << (BIGINT_WORD_SIZE - bits));
+        tmp.words[BIGINT_MAX_WORDS - 1] >>= bits;
+    }
+
+    bigint_copy(integer, &tmp);
+}
