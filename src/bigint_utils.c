@@ -22,7 +22,8 @@ void bigint_set_zero(bigint *integer) {
 void bigint_from_hex(bigint *integer, const char *hex, u32 h_len, bool negative) {
     bigint_set_zero(integer);
 
-    for(int i = 0; i < (h_len < BIGINT_WORDS * 8? h_len : BIGINT_WORDS * 8); i += 8) {
+    // only for tests BIGINT_MAX_WORDS; BIGINT_WORDS normal
+    for(int i = 0; i < (h_len < BIGINT_MAX_WORDS * 8? h_len : BIGINT_MAX_WORDS * 8); i += 8) {
         int pointer = h_len - i - 8, n = 8;
 
         if(pointer < 0) {

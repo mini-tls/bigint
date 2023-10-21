@@ -14,8 +14,13 @@ add_executable(bigint
         src/bigint_utils.c
         test/test.c
         test/bigint_compare.c
+        test/bigint_not.c
+        test/bigint_and.c
+        test/bigint_or.c
+        test/bigint_xor.c
         test/bigint_add.c
         test/bigint_subtract.c
         test/bigint_shift_left.c
         test/bigint_shift_right.c
+        test/bigint_multiply.c
 )

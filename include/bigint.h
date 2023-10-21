@@ -42,14 +42,21 @@ void bigint_set_zero(bigint *integer);
 void bigint_from_hex(bigint *integer, const char *hex, u32 h_len, bool negative);
 void bigint_print(const bigint *integer);
 void bigint_unsigned_print(const bigint *integer);
+int bigint_compare(const bigint *a, const bigint *b);
 void bigint_copy(bigint *integer, const bigint *src);
 bool bigint_is_zero(const bigint *integer);
 bool bigint_is_negative(const bigint *integer);
 
 // bigint_arithmetic.c
+void bigint_not(bigint *integer);
+void bigint_and(bigint *integer, const bigint *a, const bigint *b);
+void bigint_or(bigint *integer, const bigint *a, const bigint *b);
+void bigint_xor(bigint *integer, const bigint *a, const bigint *b);
 void bigint_add(bigint *integer, const bigint *a, const bigint *b);
 void bigint_subtract(bigint *integer, const bigint *a, const bigint *b);
 void bigint_shift_left(bigint *integer, u32 bits);
 void bigint_shift_right(bigint *integer, u32 bits);
+void bigint_multiply(bigint *integer, const bigint *a, const bigint *b);
+void bigint_square(bigint *integer);
 
 #endif //BIGINT_BIGINT_H

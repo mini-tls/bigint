@@ -1,0 +1,810 @@
+//
+// Created by sascha on 21.10.23.
+//
+
+#include "../include/bigint.h"
+
+int test_bigint_or() {
+    bigint int1, int2, integer, reference;
+
+    // test 1
+    bigint_from_hex(&int1, "1f094b78cfca0d10ea42fc502356900f519ad5f904abd13fa96bc5b7f0d3b7eb7b37fc24938ddbd63343a479388d067c4ebe1a119897c8d18bacd4d2e387a623a05bea8e4ff246926d53d1044eeadbec171325589ca88890d2efcb0bd2620ffd9808877367edcea107d1b368464ecb473629c7846aa34c83fc8c0c7f37946fdc0e8afd4f", 264, false);
+    bigint_from_hex(&int2, "10a428f7c36b9af3a420af71a1fa04a51379fbdb7c896b68180c6d47524b5a8229957ae389484f1840b11e8421712581b9d7fca7319b5a534a753e3e0e8e63a9aa4f5d6f6931d87e3f5550215339b2919c5df4b6bf70f6f0aa0", 179, false);
+    bigint_from_hex(&reference, "1f094b78cfca0d10ea42fc502356900f519ad5f904abd13fa96bc5b7f0d3b7eb7b37fc24938ddbd63343a57b7a8f7e7effbf3a539af7dadfabeed5f7ffbfb7ebb6ffeb8ecff677b6fdfbf39d5feefbfc97f3a55b9de8ca97d2ffdb9fffea7ffdbdadb7f777efeee9e7fbbbecf7deffd73fafe7f57fa35db3ffad1dffffdf6fff0fefffef", 264, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 2
+    bigint_from_hex(&int1, "5bf1f1258002564b3fb73e9fd0d07e5c68bbe8ee22835faf6fdab", 53, false);
+    bigint_from_hex(&int2, "15b3793fd967c3d4e57b01cf01afce84cf927ad097716687b0e2791e2d28d255a3ed6f97599166a98ea24b4a01897e258e745e1ab04392655be68e56aa10ff6fbc619ee162d8c3c41eee49145ab2840", 159, false);
+    bigint_from_hex(&reference, "15b3793fd967c3d4e57b01cf01afce84cf927ad097716687b0e2791e2d28d255a3ed6f97599166a98ea24b4a01897e258e745e1ab05bf3f57fe68e56eb3fff7fbff1deff7ef8fbecfeeecb5fffffdeb", 159, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 3
+    bigint_from_hex(&int1, "29b01701f2d292e9915ad37258a1e515c0b17b05c2436bd0153aa5b05bab8e31a14c57a7090b176008abc7cb4ec5cea2d288ab9f2a1fde7c4de9ef618634a66fe4585d260f24ae9ee32c1bb30cbd73f7d48b50dd4ef5d6ab7c6a2b6bc78534fa9a96b0d6074adf2f5caa6db96141e005fd9bd83700b677c275aaad46d35979f2c54df80ac", 265, false);
+    bigint_from_hex(&int2, "1656fea8fbbe19af1678fdaca9e3148a47f78aea21a83a03e2c9830d66971d580b50ef7e3f61e3a5bc88c3162d8ac9ff70e502dbca393b85b619e2e0f412b09e39e04cd2", 136, false);
+    bigint_from_hex(&reference, "29b01701f2d292e9915ad37258a1e515c0b17b05c2436bd0153aa5b05bab8e31a14c57a7090b176008abc7cb4ec5cea2d288ab9f2a1fde7c4de9ef618634a66fe57d7fee8fbfef9ef36f9ffbcebf73fff4ff78ffeeffd7ab7e6ebb7bd7ed75ff9ab7bef7e7fedf3f5feaedb963d9ec9fff9fd83fbcb7f7fa7febbf6edf597bfbe7dffccfe", 265, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 4
+    bigint_from_hex(&int1, "997652df79f55c3b65f4e40920511accfd14d40cdf112574743d1f08f97de5cc75a9f6854bded6cfed074a1d24453b1652c254cbb0907981b2f7ac3867f376a595e2f81a11771bb2d9329517e5f98c18f9dc1c580fac55ef00d8d36e8700683188f309bf3e6b7713272b4116b83e6572f124b67277d4dda7b9ae09c3cadae9c8f8c0dba97e0759c13c828163f625fd30945d5e5a5919126b3ba2e0caeb539bccdf7c379ce661607d78a91fed770d3ede823db442dde5886fb92e3cb2cda7d85387a2b0c1e4e", 395, false);
+    bigint_from_hex(&int2, "1dc4b6236a358d716d424745f5b8d4f362a474c44db8d15f91e4f97991078afc736731ff90e8e012b95b06370fb71b7b1d3f661b912b21e65b4e2ff8a8be12cb345d2114b1245d9de570c2ed568574bebb06e9292a5dabcb0288f3c5cec36cd937f99a22900a9685801aa41d3eb9d42a1fe5beabbebc1d2a5ad7e867b535d21cb67f10a073b8cb40931ccdfc6921ccc92b21272f9c25e7cfceb0536e9549f0a6bf9a", 324, false);
+    bigint_from_hex(&reference, "997652df79f55c3b65f4e40920511accfd14d40cdf112574743d1f08f97de5cc75a9f685dfdff6ffef5fdf1ff4657f5f5bcf5fffbad77dc5fbffbdf97ffff7bd95faffdf37771ffbdfbe953ff5f9ef78fbfdbff9dffe75ff12fadf6fb7e2ffbb8bf32dbf7ffb775b376fd9deff3e6ff7f977fffbf7fedfb7bdfebdf3eadffddcfcf6dfbb7f9ffbe93cabe97bf7affdf3ffdd5efbff5bfafbfbe3f2efef7f9fffdf7d37dfe7f16a7f7badbfed77cdffde923dfcd2fff7fafffb7e7cfeefa7fefbd7bfbaebfde", 395, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 5
+    bigint_from_hex(&int1, "1b97b80aa8d2d9960196fb8aeeaa8d6089aca9cbac10a4e277bcbe6ffc6c145baea0a680b9f3ab11b1afeeb2a27fe414d8821f7bb91fde3", 111, false);
+    bigint_from_hex(&int2, "13b66785bac849728b1d39de42e854c8ef0ce91a41b8a1664f564cbc1b49061da34e3a89e1feae7812937133515ab002fe4aca52460a5bfe578e68be7b04eff5bce937b10a717e04f0f655bfc19e662395b300f236ddd7979a39c1a834e77ac3287a81ed7dd094b4d1796fe21162bc03395348abcd3c1fd32967bdf50586efeaf340953b52", 266, false);
+    bigint_from_hex(&reference, "13b66785bac849728b1d39de42e854c8ef0ce91a41b8a1664f564cbc1b49061da34e3a89e1feae7812937133515ab002fe4aca52460a5bfe578e68be7b04eff5bce937b10a717e04f0f655bfc19fff7b95bb8dffbffddfffbabfeba8f6effacbbcfac1ef7ff7fffff7ffefe355fafe0b795bdfbbfd3f1fffeb6fbfff45cfefebf7fb95fff3", 266, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 6
+    bigint_from_hex(&int1, "30c1316bbd664c7bccf9b7ab7cad9a894c781c1c0b99fcb072866f7cf2e2ded53f7cb1e032db1bb31f945a8aeef67f48ac87b89ec546ed6a87e542660ac7873669418013d0a7dd2fa511c5a6702fa9acdeb57e41f115dcd1b3b78038847aca0deca1eb6273432f50", 208, false);
+    bigint_from_hex(&int2, "3855248f740f3e26b1111426eb3bf47c24c4217939cbd68ab4fce7a834", 58, false);
+    bigint_from_hex(&reference, "30c1316bbd664c7bccf9b7ab7cad9a894c781c1c0b99fcb072866f7cf2e2ded53f7cb1e032db1bb31f945a8aeef67f48ac87b89ec546ed6a87e542660ac7873669418013d0a7dd2fa511c5be752faffcdfbf7ef1f115fefbbbf7fc3cc47bfb3deff7ebf6ffe7af74", 208, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 7
+    bigint_from_hex(&int1, "60f54e6d4a915241ec2574a4b02627a2db7508cc36ff67b51f0f88aaa4773f62f8b4c4f121e9595dd8cda095ad0bd4abafd20d44f8972014f76602d5886d6481159e4654d97a7cdcd21845a202b213c0fa69c519c3747e7c7449343bec8544708c4d8f2ecfb121ce396b7ad1751cab0b49112ada7155a842f42a4a3c2bae34b88c1b24637dc0f9feb1e04b46d71bd3f0811aa14a49b68ff6752db1170b0f0d903cb766567c91501f5d8e67435ca538929", 353, false);
+    bigint_from_hex(&int2, "787251f02416b84a3613853202d0499f02ed4dcbedc8d893f816390a86c6bf57594f0bc0c22e014989f43a655debe63f01df66b1b036705251ce8765a1d22874f5835a2b4856bff95b5b0dd816637c35a1e53ad1dba0f20db7a11c01a4612ceb7f3a00264181900c53100dfb1fc00d75172a360ffff6b7d1be5066f9b4f3b1de45f2072ac090ba3d60b7bac8a30c38efc7b947c11b4aed20f3c1024ea8505", 317, false);
+    bigint_from_hex(&reference, "60f54e6d4a915241ec2574a4b02627a2db7578fe77ff67b7bf4fbebba5773ff2f9bfc6fd6debfdddd8dff897bd0bd6efbfd75d4ffbd7e23ef76f8bf5ba6d7debf7bf47dffffbfcfef25a55ee87f7b3d2fa7df59bdb7f7e7efff97f7beddd5673fc7dafeffff1fbeefb6ffff17d1daf6b6dfb7ffa7177e9c3f42e5b3c2fff3ff88d7f376b7fcffffeb7f1ff56f7fbf7f3b1dee5fa4fbecff6ff3df1b7bbcfaf9c3cffe7ff7fd15b5ffdaef7c35eefb8d2d", 353, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 8
+    bigint_from_hex(&int1, "c7fdae6bc7e60db9fef7da5d32d3b04e319699995b6f", 44, false);
+    bigint_from_hex(&int2, "1b97379d89eb59906767372602e3898b1b06f238ccc860441663be935aa87039c5cf184c0cd1d49a80f0c40f7528594c20519e1c462bfcacb59a05f93d42f639ba6ec3fd97b06b0a7a0ce739ad5e", 156, false);
+    bigint_from_hex(&reference, "1b97379d89eb59906767372602e3898b1b06f238ccc860441663be935aa87039c5cf184c0cd1d49a80f0c40f7528594c20519e1c462bfcacf7ffaffbffe6ffb9feffdbfdb7f3fb4e7b9effb9ff7f", 156, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 9
+    bigint_from_hex(&int1, "610ba493ed44bd5c8c77c8be13ed9644121bb66d9b0eb6687002ed6230ff97ddf52bb9f4b4dca657688b762c8dc207a868603af9838022f8e7d8e8045a4ba3470ff530da85897d0ba4ba332a4126a59a50408d0e5a847e3cc6a9d5fbe939aa74e09f4263c5b78a5a903e6e5a251c9b9cb2050fd9b5f8d162702693ca246a8cdfaa7d8a79a34f301f19d0e93c6443bf6c77122450a5c9352c9c45234f3e25156c66879a700c17df39ee8935493aaa06b6350a7c2694e6cd4535de23f39b06741c27bef76b0285b662ecfa4789fd07e85ef75649f7c78b47c31fdd0e473", 441, false);
+    bigint_from_hex(&int2, "1bfcbfdc667ad450b61e46b74af82b25c1d30e24e0dd4075430288d0337e299d1173ac293379ec17837d95307ee7f6a27e71eff434df4b4204d417db4c9bef99c2425361474c275c579a7312954a09527e4de9fdf7f0d940d6e7114c1dab96994ed474e4b88933c75084d8bde6253a7803a93025986bc17668a50e44bd07a7b6c164caa0f081dead99009d34e739af0929d72da8f6944569baf5ca287ec71ea7b16778b227b440cf90a68ee149d33d43507ef74d508955a6e611ef3aea31b25110d6d80", 391, false);
+    bigint_from_hex(&reference, "610ba493ed44bd5c8c77c8be13ed9644121bb66d9b0eb668701bfdfffcffffddf5bfbff6b7defe7f6dcbf72eade2dfe87d633af9d3b37ef9ffd9fbac7b7bfbef1ff77ddfb5ffffffa6fe73eff536ffdb5244dd1fdbccffffdfebd7fbe97fee77fcdfda73d7b7ca5bd27e6ffbfdfffbddf2d7efd9fdfdfbf6f96ed7fee4fa8dffef7d8ef9bfef353f79d3e93c65dbffed777aa55ee5fd37afbec567cfbef595feef9f9afd3cf7ffbfefa9f76dbafe96f77dbafdeebcfecf5fb7ff67fbbb27f45cefbef7efe3cdf77feffa7ffffd57e95ff7f659ffffeb77f35fdddedf3", 441, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 10
+    bigint_from_hex(&int1, "3f06e3738f664b24535547592ac18a93a0992f399020c344b2da58b98ce95e7b169f10631ba18abc715ebe33800da32724dd9e6bad1ce928a49376a59167916ce5e28099c2812e16754ce24de164e3dc5c80fb0125e844ceb5ff75d9271767a7b4114f454da684a9733709b0aa4eff41a81719df90508501884006ed27055ee420630fb5ac05b542767786ce82228f9ebcd678f2cb46e1b83e1f9eb6bba0dd33c93b2d11a9d45935662dcfca0063f0b221eab72b1a899a83a41b590e02a1925b7e79e030176aa27c89ae7d7f4a94e1af416db5bf6327806d6dd03fad46c1fe806", 449, false);
+    bigint_from_hex(&int2, "161ab40abec6299f027a7cdd3865077a53631e8bcd79345cf0930be242a147bfc8969ad68df65a5c278f8eb9526f1d00efd4e9758854f83ae5ed5ac410d935f066ee9cd545935c7ee850a495ff98e081ffc2b668d57cb61692e6b9ef3f0d64445c3eb562c82b1cf5a36d207a928fdfac3173de6464086a8517f86d8f6c1f3b9c7a2e7a1910fd22bf17489f69330ac0c1f788b0ef1fa5378a3", 305, false);
+    bigint_from_hex(&reference, "3f06e3738f664b24535547592ac18a93a0992f399020c344b2da58b98ce95e7b169f10631ba18abc715ebe33800da32724dd9e6bad1ce928a49376a59167916ce5e28099c2812e16775ef64fffe6ebdf5efaffdd3ded47fef7ff7fdbef7f77fff4934fe74fa7c7bffbb79bf6affeff5daf9f9fffd27f9d01efd4effdaf55fefee5ef5ff5bcddb5f276ff9edfc7b3dffefcd6fcf7ffdee1b9ffdfbefefffcff37dbffbdffbfdd7d757e3fffeac86bfcf7a3efb77b9a8fdfafb57bdf6e66a9fadf7ff9edbf7f7fbbfcfbae7f7f5afde3bf576dbfff732fc0edffd8bfef5fe5ff8a7", 449, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 11
+    bigint_from_hex(&int1, "5dfc6fd", 7, false);
+    bigint_from_hex(&int2, "cd90a053c6222949fbb73bad148cf58cab76b6a3352a59201c3b3d3", 55, false);
+    bigint_from_hex(&reference, "cd90a053c6222949fbb73bad148cf58cab76b6a3352a59205dff7ff", 55, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 12
+    bigint_from_hex(&int1, "d5fee11b7a3a111f80ff19cd8bbdf17306a3bcdb4093add8b6d41b26e7b0fc5ea24f8dc6ba31a562490297485dad87e5c01eafb432160a1c60544a755b6601e55ccb58781e1f0fbcb6bb8aa907a6754f755fcbcecf490347c852d1437466d149814a5e102ababc2af3f48d30290bffce0a74e20e8ab173a97a698535a8d8a55e4c3b7f612dabcc6c7506034501eee08f8991d29360f6b4b7ac8695bafc7b26b2a914a2d69757b436c646d22f628122f02952142c52c2809be5a87e4962ed3abcfa", 386, false);
+    bigint_from_hex(&int2, "1f105d944f850b0bef216a456961c77b200b8436c8ace5009b88a5f8d4460d8be90", 67, false);
+    bigint_from_hex(&reference, "d5fee11b7a3a111f80ff19cd8bbdf17306a3bcdb4093add8b6d41b26e7b0fc5ea24f8dc6ba31a562490297485dad87e5c01eafb432160a1c60544a755b6601e55ccb58781e1f0fbcb6bb8aa907a6754f755fcbcecf490347c852d1437466d149814a5e102ababc2af3f48d30290bffce0a74e20e8ab173a97a698535a8d8a55e4c3b7f612dabcc6c7506034501eee08f8991d29360f6b4b7ac8695bafc7b26b3f915fbd6ff57b4bef656f67ff69d77f229fa576cdaced09bfdaa7fcd66edfabefa", 386, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 13
+    bigint_from_hex(&int1, "37a89749fcec730d9833abc6804eb194a474d8b644d9a61159747e85e4c26eb07703f2cd271c7b1b97961dd754795f38de0b54d07014a02fcecb4785df0a0bfb9a568e1fb41c3f6ebdfa22d6dfad58204b3ff050297cfc83b5e0c8b3fc49f06a6581a0454d999304e6b8c046b1de7847fd245576c7f09400b67097a6d576bbed94982ae749a24c9ca5e23aa021f04fa22a087f77", 296, false);
+    bigint_from_hex(&int2, "1bbddb0c99352f286ff49d878102b6192a7cafd182263bd9347d838f85e693866a6a0d43126265edfd39408c85473d68b5b7d0568c839fffbf670dd57e2f46ccb7eb9c6b9da3b764367fc23ac4", 154, false);
+    bigint_from_hex(&reference, "37a89749fcec730d9833abc6804eb194a474d8b644d9a61159747e85e4c26eb07703f2cd271c7b1b97961dd754795f38de0b54d07014a02fcecb4785df0a0bfb9a568e1fb41c3f7fbdfb2edfffaf786fffbff7d12bfefdabfdefd9b3fe7bf97e7d83afc5ef9b976eeebdc356f3fffdfffd64ddf7c7fdfcb5b7f0d7aed7fffffff79dffff6fe6ccbfeffe7bbda3f76fb67fca7ff7", 296, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 14
+    bigint_from_hex(&int1, "368698b3835143074109bc29332d85522722819a2865b2d39ae6d6ff3da1926d5de0852713b7312f8a4063a9a41e5e1d310b79946dc240d071599e8ac26ddc6ed5c0422234f3f55a71b3e5a8403da97312d648df03a90d1d58058f438f8a1037560305bf6ac78cbac70651943ae9e3e0d8dbf88345886e3e1c3c24de7f57a0baef5274f59911d079d4efdf5e880dbd1816c307ef2d0006320e5f5b6f614ebee282bcb666aa60c79aa6a2ad8c224ed2", 350, false);
+    bigint_from_hex(&int2, "1d1632d7ca0eb81e4d27b67bc3685b2871a5536c0052cb89934c88f9a8ae6a647d7f1bdb05633f56ef6544851f2973ed62ade0563075", 108, false);
+    bigint_from_hex(&reference, "368698b3835143074109bc29332d85522722819a2865b2d39ae6d6ff3da1926d5de0852713b7312f8a4063a9a41e5e1d310b79946dc240d071599e8ac26ddc6ed5c0422234f3f55a71b3e5a8403da97312d648df03a90d1d58058f438f8a1037560305bf6ac78cbac70651943ae9e3e0d8dbf88345886e3e1c3d36feffdfaebaff5f77f7fbd3f87bfcffff5fec0dffdb9fd34feffda8ae7a6e7f7f7ffb4fffffd6fff766af7feffbefe2adec767ef7", 350, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 15
+    bigint_from_hex(&int1, "4207356d3be8fdee73f8d5c247ec0c4e79ab62fbdcef8a2ac0e2ce6faf6a0531051963d6bc5c7424adcd81f2b6d65c0c35c6f7a05f2a004e9955cc028a379822e43b3ab88cd3e31827f1f8b7958059f5d8d59282f8533e8f35ebe0d2578e86ff78a60e6594bc3da66452e627aa4bec02bbc5803e779425043eb4148d1bf30369763c08bf619cd8af135858be6627dbf7857d79b9292656dbdd1213a39cc26b2a06c36789130354656eacd464def8fce43561d1bd", 360, false);
+    bigint_from_hex(&int2, "313bfa7ca228bf296677af351d87043349c0794bfd481aa70f271aa8a0ffb72382ca192ccc9ceb5ddb44102111ea785ba21ada1cbebe24394a42a9fa200a2924da812472281fee82a348dc76c6804274b1469b6a30c7707bdef4287c0e94ebf6115a6ab4164112823b14749cfeaec707fdf8f6985750720d6d9865001764d609c9ab9118d4045aaab7f38b9f9df449cc692566cb22a1c5bbdef724eadb06c0265defe27e5666411111781a74b5d024eeae25841d3d2a8be2eab2383c4e91d7e4caacf254193a1f5f880f88f3acd8bfa828ef626c9ad28766fc64b502247490074d7ef7fa04e12822418ce2e38e337ff08180b0d5d83efb2ea29e960e", 504, false);
+    bigint_from_hex(&reference, "313bfa7ca228bf296677af351d87043349c0794bfd481aa70f271aa8a0ffb72382ca192ccc9ceb5ddb44102111ea785ba21ada1cbebe24394a42a9fa200a2924da812472281fee82e34ffd7fffe8fffef3fedfea77ef7c7fffff6affdeffebfed1faeeffbf6b17b33f1d77defefef727fdfdf7faf7d67e0d7ddef7a05f6ed64fd9ffdd1ade37daaaf7fbbbbf9df7ebdc6ff5feffb7a1ddffdef7b6eafb57feaf7defe2fe57eec7ff79fe1e75b5fc3deeee77e63fbf6befe2fbf7b83e7f95f7e4febcf6dd1bfb1f7ffe3f88ffeddcffaf3bff7afefef7dff7fd7dfdbb2d76d6dfdd7ef7fb9ce36b2a47cfe7eb9f337ff5efacf4f5defeffeeb7ffd7bf", 504, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 16
+    bigint_from_hex(&int1, "13d3386814550ca3ac1c", 20, false);
+    bigint_from_hex(&int2, "3e05bad461c6625caa895817c7d4a21f2288e3f55a84039be5da3762aaed22fb8b15dec42749bac75d7668a569f019ff2f838a8bb6a7887e08f3e8fb772b13b696267932880626d9c9722a37", 152, false);
+    bigint_from_hex(&reference, "3e05bad461c6625caa895817c7d4a21f2288e3f55a84039be5da3762aaed22fb8b15dec42749bac75d7668a569f019ff2f838a8bb6a7887e08f3e8fb772b13b696267bf3b86e36ddcdf3ae3f", 152, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 17
+    bigint_from_hex(&int1, "15ab4d88e5a921117712ae9f2148a27732101b882a540a801f8edf7ce8ef1ef48a6b8b2d24f792214be8b521d8b1c14da5a8299b01c90a5610b186bb76641f0353566067e6300b5ffdc1cf58ff518a619be763fa6e884dd8d99b55cc0d5d0e107fd94f36737f5214dce816ffe883c98a57e6cc64d9609966712e0498d333fac4243459effe0b9614d35ad8407c4f88d58f57dd3c8679402e6c5396744f8556823eb349439d540aab331b3fdf", 344, false);
+    bigint_from_hex(&int2, "84f2d67effa0dcdb2e830b255cd1ba91c36b0e41e23fa7f1f58e69b3b30fe8b1460befe0cadcff3c9fde578874257ca2943740a58a6c487f25d86d85c0f4f25567402c40820009e9153abcd38a4dbf912f8818215119c025d5fb8cf42fc94fc8eb7f0323ecf96ba3473fd1184d", 218, false);
+    bigint_from_hex(&reference, "15ab4d88e5a921117712ae9f2148a27732101b882a540a801f8edf7ce8ef1ef48a6b8b2d24f792214be8b521d8b1c14da5a8299b01c90a5610b186bb76641f87f3d67effe6fcdb7fffcbef5cfffb9be3fbef63fa7faffdfddffbf7ff0ffdbf567fffeffeffff7e9fdeff9effedffeb9e77e6edeefd68ff67f96f85d8f7f3ffe7643c59effe0bff15fbfedbca7dff99ff8f5ffd7d9ff965ffffdff67fcfcfdeeb7fb36beffd7fabef3fdb3fdf", 344, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 18
+    bigint_from_hex(&int1, "fe2a37a789255e0f1928cab40918849844c7f609ad86d6fff80998fa8ffd44411da4fcbca0fce1f5655a83e44c7147d68c3052caa556f97e5f42b23d175207a4d4d63816be13b16b6bde898849c9bc7e78ecbf53f4d821647e1abfdf558e6cd417a2fcd83d7fa2a567617d1e48c764a2524dea5b73da0d371170632be6c174cf3607f192ee117de587ea00ffa90b5eb4775801146958c47d453406d4fce18c8aa5ca799b3068f783874363bdf2279e5ae85ebc7acb6f39a0594419b16e089378b5f3579da263611827463fff013", 411, false);
+    bigint_from_hex(&int2, "3f9b3e55354a9207a216e9138d9d49b4381946b3e5b188aa0d5ee1519232030a6c0676528770a258b0be317375be05e85817fd4e50b254c2d19aca741e96601aafc612d4b17b3efdb686a505362bf99142dae17edf4542546b2645090ab7cc0a419de6bf64512d78f794d2819e46a66aa534950e801363df790cf164ac7dd74e4b3a7d9d4ec93", 269, false);
+    bigint_from_hex(&reference, "fe2a37a789255e0f1928cab40918849844c7f609ad86d6fff80998fa8ffd44411da4fcbca0fce1f5655a83e44c7147d68c3052caa556f97e5f42b23d175207a4d4d63816be13b17ffbfeddbd4bdbbffe7eedbfdffdd9b57c7f5ebffff58eeedd5fe3fdda3f7faaed67777f9f78e77cb2fe7dfb7fffdfed7f17fd6f7bf6d5f6dfbecff59efe717fefc7fad4fffb3fffb6f7fd05366bf9d57fdff57edffde3dceba7cf799bb7ecffc39fe7fffdf32ffefffcdebdfecfef7ba57dd51fb17f6bdf79bdf377bdfff76f5b3f7fbfffc93", 411, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 19
+    bigint_from_hex(&int1, "18443ba6475f9c46f5e07907d28056342ea2087a4889f11b3594a77bc40dc9c7337c6ce649b8652cb75077cf702f03de3414e9945f85355ee61ebe82409d59aa5314c52419f95f6afcfe9479d7c001dad872c650e4c9ce0e83ce412b6a1072f4593129940f8ac6bc6304a2f5dc57e65bcc971ae4c331f9adc99c7ed78330c0e372be4cf9f96582816852be", 278, false);
+    bigint_from_hex(&int2, "61b446693a206943c13c5d52a2cd1641172bc867b09f8dfeaede83a6cd11edf54bf17e57d9733c03c10df8b2dc7a1363221db7ea956ebb8b0aa88c603edff7296d72f1143c8d333ab058506788c89275b2ebdcb07ee7686521fb0619d6490709d53adee3bd40074f1e6b3dbef840aae8586db647ec0b8fef04926c14130c815c3188046d4485ae9b734665f6ae50b78ea17a08a5349b8ff1cee51a209dc048a45caafe8ad6004c643d8bdeef69e9bafb", 352, false);
+    bigint_from_hex(&reference, "61b446693a206943c13c5d52a2cd1641172bc867b09f8dfeaede83a6cd11edf54bf17e57d97b7c3be74fffbedefff37b27dfb7feb56ebb8b7ae88df13ffff7af7ff6fdddffbf7f7ef659f867acffd277fffbffb3fef77cedb5ff873ddeef1fbfd77adffbbf5317cf3e7bfdfffafcfefc79fff647fedbffef54f6edde1f8fcf5d3bea147ff4ddbfbbf74feff6be73b7aef5fe5fe77fdf9ffbeee73bf9bdc9dcfedfabfecaf772fe6cfdfbffefe9e9faff", 352, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 20
+    bigint_from_hex(&int1, "2cd87933b0d3cb245191e77b3fda7c49b21a28d6e5f1a022ab1817a387862373dd47db65b78e9ca2a9ffb7cf1fa0ed6b7eef73a33294dec70ee6fc3fb35f0c7d09b0474260471090343b7a766d9e2dcb8f3c1e82e86e673dc11fc9499680a773da288c83e44981f2e44a43b", 215, false);
+    bigint_from_hex(&int2, "bcc2a677c4fa1fe5e12a7d1d3c06bcd54e8a6c780d77be9423b3d0687d83139a4ba07bcd35bd1591f19b262cd1b3eaac12d6715b9ec0e375f6bb2a6113d262e7aeeada686728ae72003d8d7e26487f1c39699a79f1bb3eb88a2a67fae1d5a8f4546f8394386d0c68f4e326073ac91a190ceeabfb2925ebc07268a818fcf1c2782317f06c5f3893597d372de108a12b9030b6d8eae5c871d1097eaa3fdb10b263f3bc9f3426d7e2817cd6fd7390f5f5206ea228b7e4c5aeb4318ff0e2735a081c6025f61", 391, false);
+    bigint_from_hex(&reference, "bcc2a677c4fa1fe5e12a7d1d3c06bcd54e8a6c780d77be9423b3d0687d83139a4ba07bcd35bd1591f19b262cd1b3eaac12d6715b9ec0e375f6bb2a6113d262e7aeeada686728ae72003d8d7e26487f1c39699a79f1bb3eb8aefa7ffbf1d7ebf455ffe7ff3fff7c69f6fb2ed7fff9ba3baffebffbafa7ebf3ff6ffb7dffffdefaabfff7ef5fb8ff7b7fff7fe33ab5ffd73ef6fcfff7df7dfd09feef7ffb57b2f3f7bfff766fdfefcbfffefff3f8fff73defbfe9fff6c5aff7fbaffce3f75b89fee46ff7b", 391, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 21
+    bigint_from_hex(&int1, "7cd280da4798d1743c8db05a7dd42908f3c531056acc054f105a1e169c2f6aa6fe93f8a152d13090539570f2e0ed81e0c8fca5046a04c397ea8d558443ba7d9a3c197e87cf64331d5f600bd7292901915432674c78fceeb94f71bf994645d0b319a757b8894664a3770a4cb85639adc8257312d5dd26527c84d9c45ce155d1cdddc707698176a498adfc51cfb181954bcaf5fe2f3baa904a6703255adee6307cf29646c2f5ad10c155f4f9841c22e1", 350, false);
+    bigint_from_hex(&int2, "75df39d08aa472ded18c641a529fe34170dc975d5524b69ea797692f2ee14ead49e9fbe761163d77514781990739b9d89dfb83599989fad7a3553f5c158d14054000a95f41abb3b48b2373f2cdc9137c2a3d92604c4d91afd1db12feef4c4cdbe11714eb4ef0f6de51404be07ca35e5777db7df2925fd9f953301a1d0242347d2305b992a006ca5aa3aebbfa8be15f1f9eb58f3da7e52a792ee1cd87aff2672eccc3e175f28af5894632257840d752b05b336cb913864425c2941ec26860ba66c8360d071f3e271d419b7393338623e884c0ab7d23b8d4484358894ec12e328060bc25af5c8", 459, false);
+    bigint_from_hex(&reference, "75df39d08aa472ded18c641a529fe34170dc975d5524b69ea797692f2ee14ead49e9fbe761163d77514781990739b9d89dfb83599989ffdfab5dbf7d9d9f57cddb05afdf43bbbfbcdb3377fecdddf37dabfdfbe2feefffefffdb17ffff4d4dfbf71f3eefdefefedfdb504fe07cbb7efff7db7dfbb7dffbf9d7f87eff4373f5ff23bdfb92b01fdf5ba7feffffcfebdfff9ffd9f7dffef3bfb7ffbcd97effa777eeccbe577fadef7df773f7dfa65f7dafddf77eebd5f9eddfdf2f69ed76a69baffcd3eff1f1f7ebfbf5ffbf3bbbb86a7f8b6d5afff63bfdf69677caf5ed12e37df6fbc65ef7e9", 459, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 22
+    bigint_from_hex(&int1, "19f0b7b3a20eb96449e07ce7abb5bd67b40d28dacfe263e4178f3bd23704525a81aff1734b2504868134943bd59c9591a8f6babae678ae3d8ec282b31e2b40dbfe32b848aca288d49ae737ef39ced1e8060552062a5303062171b67399ea642a91297d50b1cdedf6755c4d12bfa49bc9ae1be5ae03acc", 237, false);
+    bigint_from_hex(&int2, "4bc4585268cab79764c268e0ca0757701c97dcbd76dffb3c889866c9da40b96a7d399f5a1888573f4a9a981642ea327d397b10c37f7583cbb6655943eb157e5793a19fdffcd26fec4ed4179ce5005cfddf02ad8a46fef2db2c9b3e0f0fb622c6a5c26f69e2deb5bf02357e557bc2210583bc7d7da55c7ce40bf1146792af8e5c9fc153922e6d79ba8b23158889cc0a81f662b6bf731dd6f1fcfe3990c35d2570cd326a233610407cdbe3bd6a84d40d10bc18fc9494105994ae84389773b9fd710dcbbd4663dbfde697a619d5e4aeec9c68c412694ae0f62c58cea9acb5d820c5c84dab5ac8aee5f17bb4c092c727675d4c59a5a61921c2d3915ff024e", 505, false);
+    bigint_from_hex(&reference, "4bc4585268cab79764c268e0ca0757701c97dcbd76dffb3c889866c9da40b96a7d399f5a1888573f4a9a981642ea327d397b10c37f7583cbb6655943eb157e5793a19fdffcd26fec4ed4179ce5005cfddf02ad8a46fef2db2c9b3e0f0fb622c6a5c26f69e2deb5bf02357e557bc2210583bc7d7da55c7ce40bf1146792af8e5c9fc153922e6d79fabfb3b78eb9ec4be1fee7bfbfff7ff6fdfcfefff2e3fd37fffff27f27765ac1fffbf3ff6f84d68d34bc3bfd9c9591f9f6bebefeffffbdfff38ffbbf6f63dbfff6bfeebdf7ecfefeff7fef3befdbe8f62d5aceabffb7de21f5fe7fbbfaecaef5f97ff4f1dfeff7775d4d5bbfa69be9eedbf5fff3ace", 505, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 23
+    bigint_from_hex(&int1, "3bca04e810b564360549f7bc0bd574c7afcbfc59f0806e36bbfbde32d4a0dd26a9a070969b1d18aa39f9491e43cbcbef337815593f26c008a8fc4b5c5b20126c8afaf3e592ed37ffb3b396828cdf13ae1bf2d26f442180d759a7819b955ba2a2ea79e5d7fe58ef89b4bd383974a0197f10b6cb3a41211bc7dac9df0a7c8d1015f24e00c8d48cc2c0cef590bebadff42e14441ead74549214b236b4b21ce47320652797a222b487291b1932cf68b880ff3c680fd7d2c15a5ff66578dee", 377, false);
+    bigint_from_hex(&int2, "c00dc96d46eb25c9e6ba86bdb197084c5f04ab43346d7b92f021cfa77d72559b30d819e4db1ac9d08f5dfbf5468661a38a1ec75b355d5f14c9", 114, false);
+    bigint_from_hex(&reference, "3bca04e810b564360549f7bc0bd574c7afcbfc59f0806e36bbfbde32d4a0dd26a9a070969b1d18aa39f9491e43cbcbef337815593f26c008a8fc4b5c5b20126c8afaf3e592ed37ffb3b396828cdf13ae1bf2d26f442180d759a7819b955ba2a2ea79e5d7fe58ef89b4bd383974a0197f10b6cb3a41211bc7dac9df0a7c8d1015f24e00ccd4dcd6d4eef7dcbefbffffff1d749eedf45eb637f6f7bdbf1efcfb77f727dfb32fb59f6dbbbdbfcffdffbfff7c6e1ffff3ed7ffff7f5f9def", 377, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 24
+    bigint_from_hex(&int1, "1e8941c38f80849263f21099817cfea96ea80c84ad6b8cf8964bd4fe8781f05ba56c99140d30c2027ce047f01c6ff3eaadb9198932a2e2580731aa01972fe9646649d3b3d4ffad5e84c5a6ab495cec36515b49e26751fba692ba3067d63ccaca50386f3f283c80cd7dc0ba062bf4da8b0", 225, false);
+    bigint_from_hex(&int2, "7e85cebeda462a38c5b6faf00aa17de94d544fde3ae5b06cb1d444e49c1692f74f34dc3880448a669e54a03b0669c6e5c1078863319702fa7bed3a15e8d163add207610417909", 141, false);
+    bigint_from_hex(&reference, "1e8941c38f80849263f21099817cfea96ea80c84ad6b8cf8964bd4fe8781f05ba56c99140d30c2027ce07ff5defffbeeafb9ddbffaf2eaf97ff9ef55dffffbe5f66df3f7d4ffbd5e96f7efbfdd7cec76db7fdff6e77bffefd6fff167de7ffbdf52fa7fff3a3de8dd7fedfa076bf4df9b9", 225, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 25
+    bigint_from_hex(&int1, "763f4f706fcc816beefcda5e0bd92f8a40a60bf4f44e8a496c01000e7b546c45b0e215abf76383c77a1ea2b956837bc94ecf4ab290abd1450b6d59135fce456f60b74dddc7fcaa1db04e2008b386d2953a5f60f59d00a5c7d2622e9b225d2e6855612564e423e24cf4cfcb90a12448a229711f3608d7f7cac11c02a9470b12a68c508960b965d7c364c77eb7d7628a5a7caf423a43d8870e6949a72381a8275caf32ad88c9d6e3d54b2c446be4c9911b4648bf4103ce433dfb97b423f800772da6c04ae50ac586158e7e3d7fe95b477fb686053f8f8c579502e026ea90c169096a72338cd40", 459, false);
+    bigint_from_hex(&int2, "105668cb701c47338b2be7dbc8d1511e50b94c61b2444f344c4ff1283c8e870ee8e96d8440ed148a80279a90af9d04b5f56afb4d7fc03de28c6c25d1986704b13c9c63cd7fabe49053654966b6dd7e7771f16807d156b300eaa8a1e67ecf44682d1b95ae54ebaf0be65450c29054081a140c6f9e079644c", 239, false);
+    bigint_from_hex(&reference, "763f4f706fcc816beefcda5e0bd92f8a40a60bf4f44e8a496c01000e7b546c45b0e215abf76383c77a1ea2b956837bc94ecf4ab290abd1450b6d59135fce456f60b74dddc7fcaa1db04e2008b386d2953a5f60f59d00a5c7d2622e9b225d2e6855612564e423e24cf4cfcb90a12458f669fb7f3e4ff7ffebe7dfcaf9571f52bfcc71bb64ff75dfcff5ef7ebfd76eeafb7daf42ff57da872ffbd9afbf85bdf77eff7fffc8fdf6effd6ffddc6fe4f9bd9f67cdffebe7de537dfbf7b6fffe7777fdeec7dbf7bbc5eebdaffe7fffed7b6f7fb7ae55ffaf8ff7d552e2b6fe98db7d0d6ffe379ed4c", 459, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 26
+    bigint_from_hex(&int1, "2c8711b5d5cd3c81c1b19fa1ed5554d8d8e7c4ead80673ea99738c984bbcff3379663853b130d8be21c9efad60b0693c22d2146c0b8dab195f50bf1be34a340328fe0f3ef983cc6638ab86807fb9bd9bc6532358cdd2cede74708a7cadce3fc14b5abb05a656ac486025233b2c437a9f86a3a6ec71a37ca8d026fdb194f666be1956bc169ec07412f114cdaf2b1a2c11bdbec6a97424f6e8faf001adeab10393d9d53d704edc511d3fb0391d2", 345, false);
+    bigint_from_hex(&int2, "73894dcba15323ed49c0c6e4c0626b8830daa69f6f23a42195fdd4a4247b0a7f2eda427b8", 73, false);
+    bigint_from_hex(&reference, "2c8711b5d5cd3c81c1b19fa1ed5554d8d8e7c4ead80673ea99738c984bbcff3379663853b130d8be21c9efad60b0693c22d2146c0b8dab195f50bf1be34a340328fe0f3ef983cc6638ab86807fb9bd9bc6532358cdd2cede74708a7cadce3fc14b5abb05a656ac486025233b2c437a9f86a3a6ec71a37ca8d026fdb194f666be1956bc169ec07412f39dcdefab5b2ffdfdfec6edf466ffe8fafaa7bfefb3a7b3ddfdfdf46eff5b7f3ffa7b7fa", 345, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 27
+    bigint_from_hex(&int1, "3b2633d21a4ff8be2592769537b094be963723e8eff34f4b8eea6227e7f944ac6cedf0311d588982e2edd79d8aa564dead2b86461d795d544d80fbad3bd6ad5cf2193b97b304b59faa2b1676423e862f07738f0514039113f", 177, false);
+    bigint_from_hex(&int2, "3589be970bd081d5a32f0bed4e01ad7db25e5f5f293f44859b16cbcafc02e077eb12568c83ab0295420dafe21669fef28fe4765401530a59f5c", 115, false);
+    bigint_from_hex(&reference, "3b2633d21a4ff8be2592769537b094be963723e8eff34f4b8eea6227e7f944bdedfff73bddd9dda3efefffdf8bad7dfeff7fdf6f3f7ddddf5fcbfbfd3bf6fffff25fbf97bb06b5dfafaff6766bfef6afe777df05570bd9f7f", 177, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 28
+    bigint_from_hex(&int1, "d14975ce9ba220dd2c201f3d5a6cda0aa5d5b5241f92b5436178e1c9d5f92ec75258049ff3f4b8fc01e2faf6e700f65be48532a46a2dc2e6816ab951b3538c7dda9c7d2e9a67ab4445c9d8b2e64a2018b7c74c0e8072cf231f77d8765c77acaf9d9d56871d3dc00d6a3e8fb2001f22c796a0053639de7fe9398dd40dc3e4dc84e96526ba002ec9d9e219231153e5d5fe1c72e822f4bbb48b6c0163a266510b5829ae947b93d2c763476b7e247c1df027cd58d4a4f465287739d4ec869ec02e4510df6d6541686247560ac645154d2c0b51dd2e598d6871ececac2be11520", 444, false);
+    bigint_from_hex(&int2, "1586ff8b17c76b265f6d38888c44e5b4b3c1b18e06011afd4e9cfe04f0795412a63a62f0cee23757b8dce157648309cfd1bd8254f86b8d1215814f2188968c3e882111d9af533c0d82f33b6684a0b313d2865cbc16f840227ed4f559a56939e94bec38de19a03d39a31a045bdf20cc4546826eb92e6eb4a9117f6c6bce04305adc223e1a53cc703e40b4255f9b82dc5bc6e9fe6e48151d93801762cbb159435cecc6eff074ee16208607adeb87eee5419edd94650b9cf09f9c7b615df0816830025495996d675455d97d6fa", 407, false);
+    bigint_from_hex(&reference, "d14975ce9ba220dd2c201f3d5a6cda0aa5d5b57c7ffab57f77fae5ffd7f9aec75e5b4fbffbfcf8fc11effeffefe0ff5ff5c53ae7ee2fceeea37ffbddff57fe7dfa9cfd3fda67efc6fdd9f9faf6fa3899ffc7ec8e917fdff73ff7d87f7ff7ecef9fbd7faf7dffc16fee3eafff4f5fbad797be95befbdffffb3bdfde3de3e5fdf6ede576fa26efdbffeb5bb317f7e7fdfe5f77ede2f7fbb5bfef03e7ab6655fbf82defbc7f9ff6e7e357fb7e257e3dfb37dd7ddeecfeff2f7ff9f6ece6fedebe7ffedf7dedd96e72ffdf0bffc7b75dff0b57df2e7dcd79f7fefded7ff7d7fa", 444, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 29
+    bigint_from_hex(&int1, "7cde87a3eda3ec34dae267af96093b8ed09c8c39f122a0d162bcda343e512fac557bdd1df10d1805711fd42cc927fd1950a8c17a1e381455dcb26031de995290bb025a3935ca6c177fde84518d24d0f76bcdf4399301672869494ac70c4321561052f6bac1cc3d225b17a48f7a1127684e21a4738a4a", 236, false);
+    bigint_from_hex(&int2, "31deb2554755df459b98b49c777ddda20b7eaaa4f5e0a9db5332387519c737144dd6628ac836a71bae155b44b498fd8c4eb9b140d1c63cfa702b0bd432b2bb48c4b5cb3219f594ab0e0e6ef80f7fa3610ab2c435d12587ce7b9abe387aec96a2e074130e8c00bbf53a5d03a2f4f5423a7cd3a44b068139848bba1663ec8d8dda73c1b8396ecb175ceeea8941ed7a67a339e7a50f6ecd3a3eddeb9136cef1663b9b27bb3d181dcd806b906d5c5315905c3a22", 356, false);
+    bigint_from_hex(&reference, "31deb2554755df459b98b49c777ddda20b7eaaa4f5e0a9db5332387519c737144dd6628ac836a71bae155b44b498fd8c4eb9b140d1c63cfa702b0bd47efebfebedb7ef36dbf7f7af9e0f7ffedfffaf79fbb2e4f5f3bddffe7fdbbfbc7fffdfbff17d1b0ffd1ffffdfb7fffbbf4fdc37a7efbb45fdeb379b5dfbb56f3ff8fdffb77cbfc3f7fdf975defeed9f7effff7bbbbe7e72f6fcd7affddebb176def3f6bbdbefbf3f5b1fed8f7b916f7c5f35b47fba6a", 356, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 30
+    bigint_from_hex(&int1, "3613efb1abc6c8348be57b578d75bd3270a23eb106dd553e6fcce432bf184b6b89e1d950086cda1898c12ef40548afced9e0358c160a10aff0945f28e8a8ab057a590c2289edea220786bbda834fc0465bb05a795e1d513d2b5bf828913a48d105539d5791e7929931964872eb5ed32231a25b86072eab9b39407d66a39efeffe6379d27ed9ebd3a2730bd2a985b7dbbfed24f0c34b724e0f10d142eb4435f6b1e07240166bdc9e", 335, false);
+    bigint_from_hex(&int2, "b22b0e7a238c786fba5c1bcc32920db3f3168bc7b642321ed678d67f45d5301fd1927664c8c7a773b254419b65e371889ed7a047b0abdf76cf4c610a739cb8c8b6a984004e66dfacac240466abda123266d021cabb6010c84b2c158edda", 187, false);
+    bigint_from_hex(&reference, "3613efb1abc6c8348be57b578d75bd3270a23eb106dd553e6fcce432bf184b6b89e1d950086cda1898c12ef40548afced9e0358c160a10aff0945f28e8a8ab057a590c2289edea220786bbfb8f7fe3ce7bfffa7d5fdd73bf2ffbfb3e9bfffed3375fdf7fd7ffd7dd319fd9f2ff7edbe7b7f3fbd647bfeffb79c8fff7a3dffeffff77df6fed9effbebff8bfab9c5b7ffffffeef2c34f7affaf33f76feb5cbff6b1ecf6f2d77bfdde", 335, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 31
+    bigint_from_hex(&int1, "a02531b0d5b6a539bfdd603feae0802e682bfd4ec542313aff09a0bed7e69bbe56d3dda5f9e1c371f74edb7364e4f75c16ebdcdb4f1382ae432f48dc08", 122, false);
+    bigint_from_hex(&int2, "1da215bca4f5f23afa1b77825be68b7cd74f397767936610b8e2055ef4191606e9", 66, false);
+    bigint_from_hex(&reference, "a02531b0d5b6a539bfdd603feae0802e682bfd4ec542313aff09a0bedfe69fbef6f7ffbffbfbf7f3ffeedb7ff7efff7f77fbfedbfff387fef73f5edee9", 122, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 32
+    bigint_from_hex(&int1, "76799721e040d0", 14, false);
+    bigint_from_hex(&int2, "1fc18cac873d71073ffc4dcb4af5", 28, false);
+    bigint_from_hex(&reference, "1fc18cac873d71777fff6deb4af5", 28, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 33
+    bigint_from_hex(&int1, "308ebeeef9b295a5cc29674df1e4d79be2fcfa49752b4b521ff3d58f16cb4b49f50f4189d1f23cf49450549df343ae46184fa219f75312acd937f0d398148005fc32fec7b2f626e7952f799f71fec22f0c0f6763bfa2c05956c068027b5c78576dd04f2d0506f5affbd51c66544c332f235a8926f421f09d88ae1b5e35871ba5720d0f56d90be353577be833bde99f267", 289, false);
+    bigint_from_hex(&int2, "143d6dc61ab4f891ce6495208826faae466d4fdb7b691289d5f706d0eb2d9bf09fa80d4b5e9c41e3c18493eb2e75cdde37eea45278789ec6fca4e61c673d116f8f3d1503fb5f52dc693102928370026bafe14662eee0855c7342bd4a954aaea667f6710329006b10c8f3c094b3bf3ec8d6078dd20d3dd895966ec4d52aa816259ea1bb795eea2b42cf91cb12b8ae9089f8010f6353fa05f36a6d183b9e7cb61ae9af37e68a8ccac487ebb6b5eb033533274b33799b48b5dbb59e396f56f4c94a2926fe89c0ef49abc6282ec510d1fc72599b00f2cbd57a0837a3d", 437, false);
+    bigint_from_hex(&reference, "143d6dc61ab4f891ce6495208826faae466d4fdb7b691289d5f706d0eb2d9bf09fa80d4b5e9c41e3c18493eb2e75cdde37eea45278789ec6fca4e61c673d116f8f3d1503fb5f52dc6931329ebffefbfbbfe5ce6befedf5fcf7dbfffeff4bffaf6ff67ff3fd8f7fdbcbfbf59ff3bffffafef79dd25dbdfbd7be6edcdfaab9f7779eadfb7ffefbbb56cf95ff32feefb2fffee79f6f7bff75ffea6f1c3fff7fbfbae9ff77e6ea8efbdcfffffff5ef2f3537f7effbfd9f6ef5dfb7bf3b7fdff6fd6bf9bffeafdbff7dafdfad7ecd1fd7fd7bfbdb57fbebf7ffe9bfa7f", 437, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 34
+    bigint_from_hex(&int1, "1a607183768ae4a4f47ec85222f47e23966920080fcbe0ad09f0b46ec3621aac82ab1bb5961bca92f547332da1c332c9cfe20110e552b83f715aa7a502c89e1476086dac3fcd3fad76ae23908054d1be98e216e9c6e51945c561d8c3ca49c4250eb32cf6b133346938008749505092f1c1c47054839e12800a29ed6a33acbeaac4d4944840c12b83252009b898d2cbfe5029dfbfb5eceffd5984f335c115f5be3131dda32a523c3ae6a513f8421c59f95fc47562d4a94fb723cb40dbfe6e780bf41038ec6666d41be1e7f79a19f32636711679795cad702de132ea235afd584bfc26d50be267d399d0a9a604d8b8f0b4edf2e3bfe48f954a9e9c97f5a", 505, false);
+    bigint_from_hex(&int2, "db72b15a1a97d1bd165a0b8a7b2a5f26ea94bfac09de4e5f3f141656c826b820f33791b10947dc7b29acd752ff87ef5b940dd553413b461b1680f11d9cf143f6b9ed1c782882717f7d1d59c24a81debc46467ea29116998ac8629649e823e5ab46904ea827f1f9f50c1761a2f833a16f2917c4c77659c1bccee14187295fa1a20740454bc4780c7a6646217f77993327cfb9d91317936d48c3f045d6dac50de0c0ac2d87", 328, false);
+    bigint_from_hex(&reference, "1a607183768ae4a4f47ec85222f47e23966920080fcbe0ad09f0b46ec3621aac82ab1bb5961bca92f547332da1c332c9cfe20110e552b83f715aa7a502c89e1476086dac3fcd3fad76ae23908054d1be98e216e9c6e51945cdf7fbd7ebe9fd3fdff7acfeb7b3b5fb7ea9cffbd0ddf6f5f3f57175ef9e7b820f3bfd7b33bcffeff6dedd7d6ff97ff7bd60ddfdbcd3fffff169dfbffdefffff7b9ef3f7c39df7bff7f1ddbf2efa3dfbe6e577fa6b1d79f9ffc67d66deab7fffb7eb44fbfe7f7f9ff4d17efe6fe7fe1ff3f7ffde7ff7be3ffdfe7d797ebdfa3fe176ee77feffd8cffe66f71ff77fd3bbfcfbbf95f9f9f6f4edffe7ffedafd5de9e9ed7fdf", 505, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 35
+    bigint_from_hex(&int1, "fbc511bf41e24cd181495e59f807b073bf188acfdffc62588bf2ad7213bd25eb3e98ca1d636f21fd4defa355ec72c0811c7e68e69c785c2254d9f6b40d12ae48fea234167904baa507c0335db5a4a6eb5890267fb6e1bc7f4b75ce4702ab6df8a0c402cd348a2a429a77e08203141fd2a83f88fa2fdeedbdd99090c5cadaf0003bed1e9e5abf9dd1bd0", 275, false);
+    bigint_from_hex(&int2, "15f87719ae8b7d8c33acfe3c776dbb0a3d0ab0b7e872c8e9219b4916bbc7e38a9076041baa1617f1ad5e0007541e3881920a43e9f6947f46460bfb83304111ef19a0e0c60c67ced39dbde658600fe70c0c1dc37f4a8dcb8427244fd55e55d16", 191, false);
+    bigint_from_hex(&reference, "fbc511bf41e24cd181495e59f807b073bf188acfdffc62588bf2ad7213bd25eb3e98ca1d636f21fd4defb7fdff7bee8b7dfe7beefe7c7f6fffdbffbebdb7ee7afeeb359f7916bbe7e7cab37fb5bfaeff5ff1af7fb6e7fc7f7bf5de4f43ebfffcffc646cfff8b3a439bfff9a2e3d61ff7eeff9dffefdeedbfff9c9cddcbfffa8dfbed3fbe5fffdfd5fd6", 275, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 36
+    bigint_from_hex(&int1, "adf1d5d8a7b37726f", 17, false);
+    bigint_from_hex(&int2, "7ef070295d64c807ae84ec5ede98829a4fb2f34047da008c30a9d4c62c4f665d332fb992d99a9325f7a990d0bad107eec3c9beaef088935e5aaeb04be53b3648d42a8e52f91b3cc3c946f43ec77129ff321d1eb582fcda52b6583781e8b4b222597a30c1769430de3580c9de2c4b8855bea31a1cc9763e9a348213e90f045c4713e7abeefb37b7bced74e708b8fdf9a16b6a615575df937ed945", 308, false);
+    bigint_from_hex(&reference, "7ef070295d64c807ae84ec5ede98829a4fb2f34047da008c30a9d4c62c4f665d332fb992d99a9325f7a990d0bad107eec3c9beaef088935e5aaeb04be53b3648d42a8e52f91b3cc3c946f43ec77129ff321d1eb582fcda52b6583781e8b4b222597a30c1769430de3580c9de2c4b8855bea31a1cc9763e9a348213e90f045c4713e7abeefb37b7bced74e708b8fdf9a16b6aff5d7ddffb7ffb6f", 308, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 37
+    bigint_from_hex(&int1, "4c3424f368fb6e43427d8845035412e64812b5a2fdb4813bf1a8517dc5e015d31460318ea62c8376c7925237772a2216f", 97, false);
+    bigint_from_hex(&int2, "b7dfcf48e20e390f8501adac75fb7140bc1044cd1c9646d495a8847e237d45e6fa08d8fbf386527ee083fdcd80dad3ae2587de902fc816af1a77e9d3791a278ebecaf4d72dd768f1e46f97846150efbcdf1386b6907ecde203023b5a4ec053ac4e56dc259c883a8353e4e167d525460fc6d4f8feafe270b0aa96d348352511e97ba1ae873cd062526d0e8d6548eb38ba40652206de33492c45296fab2d9d1330b5075076f1696", 333, false);
+    bigint_from_hex(&reference, "b7dfcf48e20e390f8501adac75fb7140bc1044cd1c9646d495a8847e237d45e6fa08d8fbf386527ee083fdcd80dad3ae2587de902fc816af1a77e9d3791a278ebecaf4d72dd768f1e46f97846150efbcdf1386b6907ecde203023b5a4ec053ac4e56dc259c883a8353e4e167d525460fc6d4f8feafe27cb4aef7fbfb7f6753fdfbe5afd73ef66a52fdaefdf5c9fbf9ba517de7e6dff35d6c75afefafafffd7b2f737777ef37ff", 333, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 38
+    bigint_from_hex(&int1, "84bd3c932bde7c3006ba59684cbd93a4d613588a090859f9a2dfd78d2ec46cd6b7927127746795a352fa589ff737aea99bb981845ab1042950964ad486ec863a930cba860860837eef1b9e9bd22427a6db21547ebea20", 173, false);
+    bigint_from_hex(&int2, "17761a1a87fdc53ec7a33bc9f941e889069b2f34715c9f63a1591", 53, false);
+    bigint_from_hex(&reference, "84bd3c932bde7c3006ba59684cbd93a4d613588a090859f9a2dfd78d2ec46cd6b7927127746795a352fa589ff737aea99bb981845ab1042950964ad497fe9e3a97fdffbecfe3bbffff5bfe9bd6bf2fb6fb7ddf7fbffb1", 173, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 39
+    bigint_from_hex(&int1, "89242ede29c75c1b4a12eef09fc53b10fcd77e0783085c21b950a408c228f7c7a181e3e85c2f439928e4bff205dc7178e2107e83d5746c9a5149ab69c00844f76e87094a3586f366adabc45afb53e0b3e88e6ec5b1bd8080e9c33f238c1bac0672f0d52ce8678d2b88d70beba1ab5811b40f6eaf1589894759eb2a51bef67c3846f6ca95ec54cd635ead7305d89d4a8cee7f103109f9c5703f8d7fb25e09add46a5ac9da48faee34fccf3cb6533991948828c4504b4f13b6c6adeed445e1d5502d0939c5c76e5b99ff1bd5289fc3e4924c674d73cadd80e0b0cee9132739887f71541967ed", 458, false);
+    bigint_from_hex(&int2, "24ae76ed", 8, false);
+    bigint_from_hex(&reference, "89242ede29c75c1b4a12eef09fc53b10fcd77e0783085c21b950a408c228f7c7a181e3e85c2f439928e4bff205dc7178e2107e83d5746c9a5149ab69c00844f76e87094a3586f366adabc45afb53e0b3e88e6ec5b1bd8080e9c33f238c1bac0672f0d52ce8678d2b88d70beba1ab5811b40f6eaf1589894759eb2a51bef67c3846f6ca95ec54cd635ead7305d89d4a8cee7f103109f9c5703f8d7fb25e09add46a5ac9da48faee34fccf3cb6533991948828c4504b4f13b6c6adeed445e1d5502d0939c5c76e5b99ff1bd5289fc3e4924c674d73cadd80e0b0cee9132739887f7174bf77ed", 458, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 40
+    bigint_from_hex(&int1, "34f3513ab997704e498411b43e25a7993c5c725781eab8faf6fa3927ff4bdc8a10c40a5ce53f5dc62e938a7d72cee90434ff8f99e9e80", 109, false);
+    bigint_from_hex(&int2, "36ba2862936d2b272ee532758d0946312e4b81ffe5b6cd0979f5b402891e359015ed82895f076fc6cad2ae14cd305a1e2d439642b0d05f6421b1332cc27d73927b54fa9e93eeadb3c5f752e8718b7f7a9e7f2b5264c5a5d797cfd7900b9f490c56f0c9aa53009bfc68addaa1a11b897946eefd2d683e9e390ece28dc2fb935df9ad95abf7a834f1fdbcd85e193061248f88f5d23925ef73a4fe7c7115f489111f9b44e5951b00f1878ad04c0f1a7f090ec42eadd8986eae41f779b6caafbb8b36fcf3842476d093588a0f6551793292082c873e5fbc329d890de356", 439, false);
+    bigint_from_hex(&reference, "36ba2862936d2b272ee532758d0946312e4b81ffe5b6cd0979f5b402891e359015ed82895f076fc6cad2ae14cd305a1e2d439642b0d05f6421b1332cc27d73927b54fa9e93eeadb3c5f752e8718b7f7a9e7f2b5264c5a5d797cfd7900b9f490c56f0c9aa53009bfc68addaa1a11b897946eefd2d683e9e390ece28dc2fb935df9ad95abf7a834f1fdbcd85e193061248f88f5d23925ef73a4fe7c7115f489111f9b44e5951b4ff597abd97f0ffeff491fc7eefff99befef65ff7fbfcfafffabb6fff7bdecf7dcd3fdce5ff5dd7bfbbaafffaffedfff7ffdf99fffd6", 439, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 41
+    bigint_from_hex(&int1, "375bf847eec5afee9d5aedcfef07659cdbf894cf7bb0591a1296509e3a1fe3d8cb8b9f2358e0e29fdbf61568db7644b540ffa1fc1959316d97134f5b511cfa371e1ef073327929a6fee69efb5a6a4fd00ff60869dd3ed5b439c14a2ccc0a39f68ffc68df018f6b0fd1988ee0e446e23db7b4813b244551b620d6de3cb35b150fa7bfc452ebab9ec84b5ebff408f06230496b6e368507396", 303, false);
+    bigint_from_hex(&int2, "6cb637f6d5c578121b502614649fe75841cbd6ddfb3d6ca886a2290de13279fad22ee4c97aaf811116b134167e791af1b12b0159ab8106b5d31bdab40ed11859b4164b6a683f7b84f3d538dbd29f4697dc5b53db9ce61baf68fa01015d6bd8b67643a505175c7f7ec0b87ecd0a00aa9e40229551ac2a9bb4e13c2c9ae17ef28a66579d544ac5ccf55b1748c0dca4d4965c8b47e5adaeec2c12eb8d40b25c30af769cd5971d2f87afbc5c71d7a63464a29134dca8f7cc4eba6634393", 375, false);
+    bigint_from_hex(&reference, "6cb637f6d5c578121b502614649fe75841cbd6ddfb3d6ca886a2290de13279fad22ee4c97ffff957fef5bffeff7bffffff2f65ddfbf996fffbbbdbbe1ed758dfbe1febfaebbfffa7fbf5fadfdbff57ffdf7f57ffdcffbbff79fb316ddf7bdfff775fff371f5eff7ff2f97feffee6beff5a6adfd1affe9bfdfd3efdbef9fffaaeee5fbdf6cffdecff5b9f6bcfddbcdef6fccfe7fdbfbeed3f36efddf6b2defebff7dfd59fbfbfc7ffffffffdfef7efff699f4feb8ffef6ebee737397", 375, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 42
+    bigint_from_hex(&int1, "7c7f2f292ba83b9bd696f69381a5d00bcebaad94cf212305c1cc5ef26ce033fa13fa4a5944341a77cce0ec240be6ff329a9dff5a69e876d7131171d8c1100fe0dd582ebf8464173d2a9988c72a471590b177bab1f6d89f97aac1ee09fefdb1ae36e3bf158feb64949ce54432e3b60f0ac9c40e80d32c5da46da76a2ec6f14bdbf46610b5b3ffdb2dc064367d003af14767e2b41979f6fecd9ed05f2e70308ecb9e4d2ab7146d3f075c82dc", 342, false);
+    bigint_from_hex(&int2, "d2409daeb2c3f267896fac510a7d5c45aaaea3af8b8d4cb677804310c20ab95383ea9ab863426c58dab5f853a705769318044ece7afacd3b664c450aed40f1360c2f9f906e9ffb3494d9b957465c10943afe32566595d7448d4d3fca53cdd2026a24b436c9d7acc99e1a2c3f140f30a8f1d752edfb6882d97d4719e9ce9dec786a46d96ed9bb5ae53a4f1c4e952fd234564860373dba5217f5a41a6f017fbe65783fd31a98ee72833a1f", 340, false);
+    bigint_from_hex(&reference, "7cff6fbdafbafbfbf79fffbfd1affd5fcfbaafb7efabaf4df7ffdef37ce23bfb53fbeadbfc775a7fdcfafdfc5be7ff769b9dff5eeffafedf3b777dddcbfd4ff1ff5c2fbf946e9fff3e9dd9ff7f475d90b57ffeb3f6fd9fd7eecdef3ffefffdfe36ebbfb5bfebf7bcddff5e3effb60f3ae9f5dfd2ffff7da6fdff6f3fefffdffffc6e56fdfffffb7fe57e7f7d4ebfffd777f6fc797ffffedf9ff5ff3e7f31ffffff7d3ff71efdff77dfbadf", 342, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 43
+    bigint_from_hex(&int1, "30a82eb45edc5b68935afc0afffe8d764f022db1e782a2137b55cfdbcbe85205cd24f93189783e02fa80768b3b8d9629c1c5f8c9403ed110c5ef26c96d5cc1f636cc73ce910b87b4fbc8c20250628e5cb60010cf2af86f8463ca03d394110dd7eb195113537c7fe6589e93e804dc9b830732969ab422a6c168dc1d8c2ec5334acfcfb7662d50b8feefc1", 276, false);
+    bigint_from_hex(&int2, "5b7196572f1bddef39b6f6bb9af60a552e6ade2acb432aafaeeabcee4f5910292f61a662c7c9bec3c04b88d255bd530f139bee6c5e5b0e2232ef1073388d17f196371ce8a5a48017c590d85858d80cdbf4986579817a357aa649fbdf98ca1c9001f720aa5c2dede6f4611cc4b3291bfc098d371c0b25f715420e9b504e7eb005955d12089d685ec7896f0fc910ec66271d336f47b8d805d74359222984389863266f1fdbfcdfdde1abd9b1ea7a1a9758e137fdca54544479cf78caa4d6f2261a2fdebd7174b94a482bd66895c6b037b5022af4a93b7d0a99dc6fd0338daf689d264b63ea5461e0a23b6213620b5ebb50e7729ad002e", 491, false);
+    bigint_from_hex(&reference, "5b7196572f1bddef39b6f6bb9af60a552e6ade2acb432aafaeeabcee4f5910292f61a662c7c9bec3c04b88d255bd530f139bee6c5e5b0e2232ef1073388d17f196371ce8a5a48017c590d85858d80cdbf4986579817a357aa649fbdf98ca1c9001f720aa5c2dede6f4611cc7bbabfbfdedcdb79d3faff7bfffeedf74fe7efb1ffd7f333fbd7cffffbfef2fddd2eff73f9fb3ef6fb8df6df7fbd962bd9c7f9cf727ef1fdffefffdf7ffddbfeb7edfbff9f1bfffcffcdc647dcf78efeff6f32efaafdefd777cb97f796bd6fdfff7b537b537effeedbbfd3e99ddeff833ffaf69bf666b6ffedde1f8e2ff7337eeffffff72f77b9ffefef", 491, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 44
+    bigint_from_hex(&int1, "1450418f6b7629952375abcfd5c3c3056b0fec23d25c14d894750641fedeb9ff6daf5d946eed6370f31fa82d532d718fcc5210ca9d94c2f67", 113, false);
+    bigint_from_hex(&int2, "1c67466b3b949f2d53cb135734d6e97c650254547528571063ad41f41a8a006fdc91567f6a31ece8c721b36e51f8cf8dc0b36d5f9f609a520974f6d958c8d42dcfe80034d13309951f269b93826552994761de150e80822c9d3a66712d2fe7f6dfd37506e30851f17c4c15dfe59aec48146e37ac06a0ec45c7f579606693fa014b9bc404342821ddad0359199c970b0ba36e4930f370616c7245fd209eaf5f09b300212dd1894ed3a28befb4fcc6b12b69232d9351b721e6c261df36eb290ebc9eb1deed00506aa958768f1d55513d59f3af0d0a045a71a6e795dfa1fd83adfa919e9d4313ae74275ab8f30dfd43d4af0d562d10e0f95a29", 496, false);
+    bigint_from_hex(&reference, "1c67466b3b949f2d53cb135734d6e97c650254547528571063ad41f41a8a006fdc91567f6a31ece8c721b36e51f8cf8dc0b36d5f9f609a520974f6d958c8d42dcfe80034d13309951f269b93826552994761de150e80822c9d3a66712d2fe7f6dfd37506e30851f17c4c15dfe59aec48146e37ac06a0ec45c7f579606693fa014b9bc404342821ddad0359199c970b0ba36e4930f370616c7245fd209eaf5f09b300212dd1894ed3a28befb4fcc6b12b69232d9351b721e6c261df36eb290ebddfb5deffb772fbfb7f7ebffd5d7d3d5ff3ffcf3f25db7dafe7d5ffbffdebbffedbffdd47fffe772f7bfaf3ddffd7dcffcd772db9f9fd7f6f", 496, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 45
+    bigint_from_hex(&int1, "49823e9359bca7c1773be2c6883cef491a811a9b273d928dfa115b527c688f1e4335c650ad8c2b801c527196a03676992b06a55aec01054d63826807aae85b6e736e5dc8be53633a5e5696c3122dedd113c35df2c64dd5ca49d6984e2fcaa681c7215bd4327f3c398610f6b71953d64694d85bec11ad0b838b9d66892297a3780305e068c39fb5a45e3afd66b5b51fd85bd36561a325f8d1b42e2acdff12e915f9d717e0be274c12c93fe8bdd7de5b73613150c2c081f2c7ea0", 371, false);
+    bigint_from_hex(&int2, "2e34aaa896d6ffc8733f19509c1cf1c8cdb56d61bda906a2d0c628480555b4c13422a89b5a695be4d382d06dbe9cdad46abb5da836170ad782cfbde1287d7ed2a4603d0fb7181019a6c3370bfef018f6cb5d643876e01f6092113351541a6a0a728e57f0f691f76724", 210, false);
+    bigint_from_hex(&reference, "49823e9359bca7c1773be2c6883cef491a811a9b273d928dfa115b527c688f1e4335c650ad8c2b801c527196a03676992b06a55aec01054d63826807aae85b6e736e5dc8be53633a5e5696c3122dedd113e35ffacf6dfffecff7f9df2fcbef9dcffb5fd63bffbc7baf1cf6b79957df4e97da7bedb5af9fbfcfbd6f8ffbffeffd47aff5fac3fff5ad7e3efffeb7b7dffd7bd767f1fb75f9d1be6e3bfdffffe99ffdf7d7e3bf6f4df6c93ffbbdd7dffff3e739f5ffcfe9fff7fa4", 371, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 46
+    bigint_from_hex(&int1, "4c29a6e23aa6db0a2a36ec80ffe8a6a263c208a2818b159b02faac59b856b5c2e3aa016df80b309632b4421323b938fa87aa036ab2736481295db9e460a28ad0d6eaad1fc4e727896689e8ff8cdd49708316c6422c22968d59542c0dd44fbf3d8a3caa64c2ec0518cba32b839e146324588561d02ca77426e6e3a1da6b5d9fb9ff6b7591d3ceb98f0150a5f95da24a46fd9bcfc637ca2ae7578c423ba1b8bf5e49166fe6b83c2cb9c684a0c729d5d34b3ebfd5e42e97c17d502b10eae7632e001dbac3dcb05ae8ec54a293", 406, false);
+    bigint_from_hex(&int2, "7314fefe2af271184227656969a45cf21262c2dd8e8c37401b5ee928181ed52baa846f32851f379eea51a6c55f16c8186912f4962d00cfe0257c60e8fc69e7edd9b398302ba398305", 145, false);
+    bigint_from_hex(&reference, "4c29a6e23aa6db0a2a36ec80ffe8a6a263c208a2818b159b02faac59b856b5c2e3aa016df80b309632b4421323b938fa87aa036ab2736481295db9e460a28ad0d6eaad1fc4e727896689e8ff8cdd49708316c6422c22968d59542c0dd44fbf3d8a3caa64c2ec0518cba32b839e146324588561d02ca77426e6e3a1da6b5d9fb9ff6b77b1dfeffbaf2751a5fb7ff6dedefddfefe63feffaefd7fc43bfefbabfdfed56ffeefeff2cf9f7fdeee73bfdd7fb7ebfd7f52fdfe3fd5cff12ffe76fafc69ffedfdfb9dbeafe7da397", 406, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 47
+    bigint_from_hex(&int1, "7a4992835a058493fb1a8cf56dad4f83a97b0da5a742f2a69b973b04afa7205799aa5e68062cec0b4dc6ce27453c11857a53233438df108d61a0793af2d7d07a0fef55b5500d18b645322395eccb2815d96e23e0581c1893f19a70b40578466a48b5bc767d1dd88c6aea113cd861a01a6e793f9d193c35d61e7d1bfb8c3689c2fa122db4212cd70305882842e307194163c4", 292, false);
+    bigint_from_hex(&int2, "2ee74b455aaebe4bf9486052b9bbf55641bdccdb94d1df36cdb2083341934acd79d3ddd561faa92cbe97debd82451e74f7c8ec65815377c90b31789398313cd86677ce4f732ba4aa1d34921572b6124efe2760b968cadcb3b829d5893ca165f108ac3a678b1e5271a8fc369eae0f846c973fb5ce2d82c66e8f93774c3c8104daa06a6dc2ae1395dedcc6d5052d420e93e9c4df7686bfa3db004bafd1ad885e69857f74d59bc78b61a9cdaf5df00816ac91b32ef1c98f50df00bd78deca160e938bc8ce41144c6ebbdc01ef55710cd65d64836227046b8975bb1a25942d66eef8ef682f3d4b57cf085d1b0e710f8c22786d0493b48bfa9cc58a7ca2f7e498228", 511, false);
+    bigint_from_hex(&reference, "2ee74b455aaebe4bf9486052b9bbf55641bdccdb94d1df36cdb2083341934acd79d3ddd561faa92cbe97debd82451e74f7c8ec65815377c90b31789398313cd86677ce4f732ba4aa1d34921572b6124efe2760b968cadcb3b829d5893ca165f108ac3a678b1e5271a8fc369eae0fa4fdbf3fb5de6dbff7eecfd7ffdcfcbb97fafa7a7defae7bbdfffcceff772d7b9eb7efc4fffec6bfffffe27fffd1bddfff7bb77ffdf59bd79b67bbefaf7df7a8fefddbf72ef1cbef53ff39fffcfecb5f9ef3bfcdcfc19d7f7fbfdf41ffd577acdf5fe7e7f3ff8cefaff5bbdfa79e2de6effbfff9bfff5f77efd9ffbbcf799fafa37aff4693fdfbfadcc78e7eb2f7f49e3ec", 511, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 48
+    bigint_from_hex(&int1, "da91c74d5", 9, false);
+    bigint_from_hex(&int2, "1554da249173d896c28d080badafc83e8f6c00ae806c9fecca33073ec94370eb45fb380c738fffc7c1493215dd684d18afd5607ef5bef7907ddb6a9d5076a6eb2f1ade2f834d9ff15bbba33f92ff90f76abd35713193e2e26d7aa9e97ad89cd6d2a3fa11e832f691fc8ccd92", 216, false);
+    bigint_from_hex(&reference, "1554da249173d896c28d080badafc83e8f6c00ae806c9fecca33073ec94370eb45fb380c738fffc7c1493215dd684d18afd5607ef5bef7907ddb6a9d5076a6eb2f1ade2f834d9ff15bbba33f92ff90f76abd35713193e2e26d7aa9e97ad89cd6d2a3fa11e832f69dfd9cfdd7", 216, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 49
+    bigint_from_hex(&int1, "55afeaf5c252a06344b420713957b498b48284fb974f3f82492b2c95d1cfe1c6c10c5ae83ef90f5470efe73ac63f33c79b953fc5d54c53c2495", 115, false);
+    bigint_from_hex(&int2, "653c9000650d0b1daa7893b0ae1aaa8e404e1cbe246529ad0b912a8ec7ed2092330ea84902c005d977dfa0e9aeb1b461c285ba3b959ddc9947eb2e20dd30af3e41ceabe01296d8419334d00d208673527dfcdd91d68e5401fe4c84eedd6c1c678e749bcf59358f5c5b952c24ef515860cf6704b3ec77e33988fecc23039efd9984048489163abc950791f6f0db4dece4d3f9bce545a586bf504563b74d9f039b8298748980a5847f6f7b4fd844b6b9ff03c7e7ed3a154cc958da43d94db3b6da4f067aaf87a73625bf839677638940c3ddcaa1860dbaf17", 431, false);
+    bigint_from_hex(&reference, "653c9000650d0b1daa7893b0ae1aaa8e404e1cbe246529ad0b912a8ec7ed2092330ea84902c005d977dfa0e9aeb1b461c285ba3b959ddc9947eb2e20dd30af3e41ceabe01296d8419334d00d208673527dfcdd91d68e5401fe4c84eedd6c1c678e749bcf59358f5c5b952c24ef515860cf6704b3ec77e33988fecc23039efd9984048489163abc950791f6f0db4dece4d3f9bce545a586bf504563b74d9f57bfeafdf6dba0e7c4ff6f7b7fdff4bebdff87fff7ef3f974deb7cdfd3dfedf7f7de5fee7eff8ff776efffbbd67f73cfdbd7ffcff5ce5ffaf97", 431, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 50
+    bigint_from_hex(&int1, "3536d01a3d5dbd50f5e20129588d9bd1521c21f7674a382d9dbb870a76c675fd1441bc8c6cb85586c3e4767f31e15cd8a6420c623ee6a0afdb860019bda7e83d3a75943a9199f02212d295ca236938e3605890a4f030355348a7d5ab390242488e47677f264831d4ddd6b1359c58fbe5cba2b96a14fbcf3d979a02ed62370eddb0e92d041c", 266, false);
+    bigint_from_hex(&int2, "228ee8add01695f0bc7904379563bf276e1a0d48e4ab6d583dc94e17b1d279204119f8fe1533685abe7a0d63dcbd6509002097b3dc4aa8b3059d707fe0eef0ea2dfaed6b7aefff225bcf70816acb783afb733171917765a2ea8cfa7f9b828069c5bd75c96e641dae38160e84a1070dc371c5dc10e2ecaf47a4416d094606a8988623ae7163fdb64022b4316b6e79e6ae93883d4b39745fa020485dcde5dee16ea15", 323, false);
+    bigint_from_hex(&reference, "228ee8add01695f0bc7904379563bf276e1a0d48e4ab6d583dc94e17b3d37d21e3ddfbff1f7f685abffaddffddbde71f7674b7b3dddbb8f3a7fd777ff1eefbeaeffbed7b7effff67fbdf75cdeaef78fefbff7b7bfdff65a3fbdefeffdba7d96bedbdffcb6f6d3dfeba369f8eb7078dcb7fc7df55f6eeff5fb7d16d2dcee6fefff667af7d6ffdff537bf5bfff7efbefbeb3cfbdfbf97dffaef66b7dedffdef3fee1d", 323, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 51
+    bigint_from_hex(&int1, "4f9b9a3532f9f978accb6aaa561c0b1dce7c04265e1ae0362f1291bf3ad38a4c54b72c2ba34b9e25b0ccef1cd0ef963c099f839397676a5abd7b9cda8a9e842bc58cfe50291cd3dba76ab9129ea82907bf3e345e874679d8a1b02462ada5cabce5de9d5e49c7a9c69bbf2de0dff7aeb87d01b1778f838079d803287ea74c1eecd522fcf877ada8ae83be19e89aad257e7c17b9b7cd06f8f1da9e2ea9bf4e7112b7aceaa4ec53c4400d31a6e2af185d5ba1ab3f2c479b098dfe507b6fa0d02c92b6dfbf01823156fe0fe7253a34389032b6", 418, false);
+    bigint_from_hex(&int2, "bc7441d3e684dc850d0af6eca58c04f3ef0676ab63ab5265ebb87df96ba0c2dbbe55b5c8db5fdafee9806da1e1a30b56b7953ff846b3a9ae45cd62b49ad2db291bed3777af309353d803790938baa9598df8410c06ea0a7b07cd357e2377653e780265fcf235bc26ea7edb26b1fde716da608ce3bb7eb02bf1dee8494c9509b2c2c35d5e70e193c3204a4000ecbc7a610a8c7a94eaf1422a1039994fc8add43c3c14f9c58c102b66d940afb2fa27eff4db12387033b920499adabd033e2b4e436", 385, false);
+    bigint_from_hex(&reference, "4f9b9a3532f9f978accb6aaa561c0b1dcfff443f7e7aedfe7fd2bffffadbca4f7ef76f6bb77bbf27feffefdfd6ff9e3dbbffdbdf9ff7fffffffb9eda9e9eb4bfeffdffffad7ffbdbe77eff3bdfad2db7bfbef77ffff779fdbdb037f2bfafeabdfddf9d5ec9efa9e7bbfffff7fff7fefbff81b77fcfa3dbfbfea7edfeef5fdefdfda6fcfe7fbfebaebfbfffec9eed75ff7c3fbdf7ef0ef9fdfa9eaea9bfcff7b6b7acefadeeffd462ad33bff6ff9add5be3eb7fbc5fdb0bbfffd47bffaff27effffffbf87833bd6fe9fefaffa37fab4f6b6", 418, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 52
+    bigint_from_hex(&int1, "6ff6408b1784e157bb8ee097e0342a3dcf7cd32152db7b9acf1573eb446ea6890905393d96f7417a2e980e8376713176b7a184ea551a876b35607edc1e21b6a072773c80fd78f602c6617f79f5bd10012d7c19887e3885d699f14c5c2d1ef2d388ac32968ad566720454b395bc0995b208788b85bb118456d42e7fdcd2009b73e0b23aea04242b71f02b23e1af267a2296e3f7b58ea00", 301, false);
+    bigint_from_hex(&int2, "82183013dbbae7c6da42a6bdc4960e4ce0c95870050f038baf614ac7cc3e047b03e11a93ab5754dec09ac6677c81b2df20845ca13cac6b3646622a9fb9dc49bfabf7cf7da6a12456175039d89774f5ce8d47a3002bfd2c5729c827936d3ecc41366b8d22ab90c398e031c060fd005b7a1044ee64263887355626ad1283649fa95677d51d8a6c077e669909099b70ebf9f07ae5db6cfb84769bbac5a9cb3ad16f2c2a999fb537d6a05d6b0418ea8fa46129f80f44b1", 362, false);
+    bigint_from_hex(&reference, "82183013dbbae7c6da42a6bdc4960e4ce0c95870050f038baf614ac7cc3e06ff67e9bbfbef577ffeee9bfe677ea3feffedb65dadbfbdeff7577ebedffbfcd9bffbf7df7ff6b7a6ff97f83fff9777fffe9d4fa751abffbf572fede7f37f7ecf6777eb8ff7aff0effef7f7df7bfd005bffd1dcefe7ae7defbf56e7efd3ef6dbfabd77ffdbdde6f277f6fb95bc99b7bebfff8fafffb7cffed76ffffcda9cbbfff6f2faeb9dff7b7dfa2ff7f1efaefafad6f3ffb5feeb1", 362, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 53
+    bigint_from_hex(&int1, "d00f739a780353567b0682a28b8e2fefed45520024f888fb6df9626e10668fd537ef0e7bbb189c64a0b9fec03b09a7e035a83e03", 104, false);
+    bigint_from_hex(&int2, "30505460237437e83cbbcce2eb77f3568d035d1799a76ad671e169fe8b34807724240f2df13c3a7683da987a37f5d6e796a114e21cde5cfedaa30bd5ca27a610f901a0cb3ce495d3a5a7135f8a0d", 156, false);
+    bigint_from_hex(&reference, "30505460237437e83cbbcce2eb77f3568d035d1799a76ad671e1f9fffbbef87777767f2ff3bebbfeaffffd7f77f5f6ff9efb7dfb7efe5cfedff73fffce7fbf18fd65a0fbfee4bfdba7e737ffbe0f", 156, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 54
+    bigint_from_hex(&int1, "30fc5ca2fff733118aa3098e68712870460c6c7c34c456fccc604780ba9a480b9c03b59b56e98fa4fb51d21c87a0f46e3ae08e0a9fa16766ae4fecd80d546d3905d78d50fde0210ec81fe57f0ce58a188432fcffa92f8250b06a14bec009020f08a14a3569fecf0910a45a4eb3b116ba9800d37a5c3c053acd5daf9bd22f7784dc31f0070075e944de34edb3a56c192ab6fdbe6febf929eba343a19a4714b18b942002dc1ce5bfd1de627568c2b35d066a6d1d7ccdfddda4fc99c7c4a5d3077901b14ac6a25196c817de9e95399ab47a43bc3ae4659532e2396883d77012e1a042dcd9d1b628f27f823ce583ad4404d8dadcd61e7a96bf6678b64e28d53", 507, false);
+    bigint_from_hex(&int2, "166d00576ac92b0cd0e053b4cbad24cef31f4fb3146b8f4665b4f4611a5d9e0ef866958235c0ecfb20e9cb6dc616d9551f95cb121b503a5c3585262df545a884f44b3edb2b5144eddc9de471cd77645e3756027a10477f08ff0d4026d8215400e", 193, false);
+    bigint_from_hex(&reference, "30fc5ca2fff733118aa3098e68712870460c6c7c34c456fccc604780ba9a480b9c03b59b56e98fa4fb51d21c87a0f46e3ae08e0a9fa16766ae4fecd80d546d3905d78d50fde0210ec81fe57f0ce58a188432fcffa92f8250b06a14bec009020f08a14a3569fecf0910a45a4eb3b116ba9800d37a5c3c053acd5daf9bd22f7784dc31f0070075e944de34edb3a56c192ab6fdbe6febf929eba343a19a4716fd8bd76acbff1cf5ffd3feebfd6ccef35f4ffb7d7fffcffdfdf4fd9bdfdeaffb67fd83b5caeefb71ffcb7fde9edd7d9fb5fb53bf7afe7db5b7e63dfdc7fff4f6ebbedbffd9d5fffcfffff3fdf7e7ff7756dafadcd77f7affbf667efe6f7cd5f", 507, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 55
+    bigint_from_hex(&int1, "486c2accd370510dd155ece965cbf4610105cf6ebc762a8f8aa6cf4ffaee5e24c6fb1718c9d8d8666edc1b6cb14573e414e830bfcd5d94403e34e5676d2ec49e8e8476ee0286ff37405eaff4ad78990138e42c67fd038f89d146fa119c46e8a770dcdf6d91e19e5d3328c9f9a291184a2aee3f0bf341d36939f3cb3ad401fa4220534aeb011416ea6cfdb2ba481bac19bf4298fa9c4fd63", 303, false);
+    bigint_from_hex(&int2, "55ccf56b7a504bf0dde3018594ed42caf964ee1c37e6ef54e64011c9c27a2f9c1e2820687afba84e0d09933b70ce7a594d5c915814cebf5d61003e0deb1f95d415ac36d65e07e22f1f76eb6366c0aa7b0b34d4f82b86379639f6ffde89e1879a8457bba0398978310875450e1e6b53b8d2fb441d024473ed85b460adae4af26d2098e32ee72b19ff37255", 277, false);
+    bigint_from_hex(&reference, "486c2accd370510dd155ece965dffcf56b7fdf6ffcffeb8f8fb6ef4ffaff7eeedefff7ffddfed877efde7b6fbd5f7be47cfafbbfcf5d9dd33f74ef7f7d6fdc9fde94feff5fe7ff3f4dffbff5fd7dbd37fefe2fe7ff1fffebf366fabbff4ffcf7f8ffdf7f97f9feffffa9e9ffba955ffbaaffbf7bf349f76d3fffeb7bfcd3fb463d534efbed95b6eaedfffafa6d3bbcfbbfe7bbfbff7ff77", 303, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 56
+    bigint_from_hex(&int1, "144cbd46c247aa05a7b8ee3f718ed0d142b4c8e613ceee5eb134fc7d4352b2fbb52751f06bd376a72547eab288a0cc9169c8eee263db7dc1547982e54d64d3fdc1840759fdaf8ff17", 145, false);
+    bigint_from_hex(&int2, "50e5d06ab644daab5c6a8d39249cc8907e9472b6046257d849d7cb2f1e81dcffe19050b69249806744b7d89f562bbb1a5af00ebea6b9357b05b809952bbcbe912f3521aba1a8fc5cd65454e46b5c17b42597bdb1b92512a21b51da1a916f70beff2ca0f0a675bc35c5e6b634f102035138ff0f6ca29263c40cc71100fa25ddee16ea", 260, false);
+    bigint_from_hex(&reference, "50e5d06ab644daab5c6a8d39249cc8907e9472b6046257d849d7cb2f1e81dcffe19050b69249806744b7d89f562bbb1a5af00ebea6b9357b05b94ddffffcbefbaf7f7bafe3fffcfddf547fecef7d3ffee5ffbffffff537ab3ffbda7f9f6ffdbfff7ef4feaf7dbe3dcdf6bebeff263ff7fcff4ffcaed6f7cd3fdf1940ffbfdffeffff", 260, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 57
+    bigint_from_hex(&int1, "a364620b8925501f6dd0ab49ea18f6badda178fa905c9fc7e0a4ccc21f13a62bdccba9f3949a2fc22ecaafeebfe1f0f68211f3377f3f4a84f63b25d5245d23bd784f45371b9cc3abb2950143a1ff13d76656c0e542f7080963bb69074b91de5283e2b320024ca4e4ba96e563eb8439b8edded9c74533f3bd39a359f8df01d871661b11a770b8f18a613ca7efc829643d1de09eb639e7f397341", 307, false);
+    bigint_from_hex(&int2, "15536a627df7e8abcbac0d05de86bf309435b94a4397db461669c6eb46619da9dbbbd6797dbf1eb475a552173384496b57658a015fc4b71909ae0ea0967d62c6aaa69e995c182d7a593209b3ef8159487cf52abaa8358a23502a914e6b892ceb1c92333759f48fb00d463dc41ba01b9b2f7da62e55bdd3cd22173cd48e913e804149daeec34da2ffd7b2c2a0f961acee6c1916b1922ef4bace8a363b167a3776e07d0c83ca733135961f832948f4", 348, false);
+    bigint_from_hex(&reference, "15536a627df7e8abcbac0d05de86bf309435b94a4bb7df66befbd7ebf6fd9fbddfbbdf7bfdff1fbffda5dbff7f8e4def77f5ba63ffccbf9f39efaefcb6fdeafeebfe9f9f7c393f7b7ff3fdbbefe3fb5d7ef5fabbffb5fe7371bbdd7efba97cff3e9ff33f7ff5efbe5d6f7dc49fbbbf9b7ffdbfef7dbffbff2237fedecfb97ed67ff9dbffcfddeffff7f3ffbbfbfbbdffedf91fb7966ff5baff8bbf3bb67bff7efcff9ec3dbff39fff79fff397bf5", 348, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 58
+    bigint_from_hex(&int1, "3149bb29272abbdf4bdebfa576b2b70e659f32b5df6c40e7a6", 50, false);
+    bigint_from_hex(&int2, "51ec78187a230f1d54cf02db2dd744f8797d4983d71e9f814b3e902e1575bb9f1bfb56f405ba4fb7669668b251497bf7dd414fb4432d69d626616a1702a91199a7136943bef3a96549dbe7e39c4021178dee725231210212c8c01dec312ca60b6594c5af786a69f96879564b13a383", 222, false);
+    bigint_from_hex(&reference, "51ec78187a230f1d54cf02db2dd744f8797d4983d71e9f814b3e902e1575bb9f1bfb56f405ba4fb7669668b251497bf7dd414fb4432d69d626616a1702a91199a7136943bef3a96549dbe7e39c4021178dee72523121335bfbe93feebbffefdfffb5f7bfff6e6dff7afddf6f53e7a7", 222, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 59
+    bigint_from_hex(&int1, "27637bc0ae043f0f6963c6392b089ccc8ec99c4ddfe4ed41d7c5621b85adcd99acbb0a4e47f3f68702833ddbfb231ad08d65edc34aaeba7e6087f9789c5712e04ac0d4a6bcc1697c41f2e4d09c4a6e0e28051da32722188bedb237b8a681c744d99b83c52ac0ca68e681f9141862e5b5155cfd08829d4928068661249c48c8cee36db713273a3a064436d0e77575aa8d8996278b0c2216372cec", 308, false);
+    bigint_from_hex(&int2, "e3460386f3ffca926188154c92752d499f65236340630fc61b29c4be2db039d74ad5c46c2edc9a5c221fcee5f38b864148fff71e27879d146761dd7d7f7384fad074d68f26f3b85ebcec97092adab977983daae47caaf8cc6d88047e42f131711dcd651f0c07f946c8b13ef80269898f40a8e3a4c3e558861c6102a74510cc4a78250573bbf567c68728e94aa16589599b3c4117d97624a7a525435dcee96291bb2b37487e92b07c5161e", 341, false);
+    bigint_from_hex(&reference, "e3460386f3ffca926188154c92752d499f7737ff4ae34ff6ffbffcffbfb0b9dfcafdddecfffededc3f7fdee5fbdbded9dafff7bee7ffbf7c7769fffdfff3b5ffd8f6dedf36fbfbfffeecff9fabdff97f9cbdafee7feefedfed9f2e7f4bf5b7f1ffcd75df3e77f9cefefb3ffb8a699dff4db9fbbcd3ed5ca69e691fb74596ee5b7975cff3bbfdf7d68768ef5ae9e58dddff3edb77fb77a7a7e5676f5fffff7ab9fbbb7778fed2b17f73efe", 341, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 60
+    bigint_from_hex(&int1, "5dbcb76df1fc1b90e42cd97511ee01578454a14081fb26e251fc45cc3c5e9e473a1872f4037e56547d07a366a5d03145a4abc3b744cc9c0aa4ee553b1be6bb9e4a2333e9979a75da7a14adaa9873f9683f2576ceca270718fb7fe343c58869e9e937ffafa00825ec596dea49aa124f5f3cbc4a3ca258b894b73c710a4f82a2e57f9100d205ba8e3a49c312c09803f57e30cfbe19d081201e378ad8d7295dd61abf4b46f6b9255a6772304ceb8caeb808c642f57dc0eca134a05e2ff7d7f4dcf61e481b064bac50a34a8a2eff46b6cc5a2e99dff299ed70628eb90e427fe5452b3824bcc2f180f1265070f1f535682c35431dfc0202797ace2", 497, false);
+    bigint_from_hex(&int2, "e03b414f9287fff5fcf32dcce3c98abd90b37ea2339711f33686cf0e21ac8235e1199049ff4e0f3a03eb2cd2f76359737f5e497697637ee11a42ff776515b17049bc0b41c765fa55597bac2c1e9688993dc974cff4c82fdfce89216417a2a6f212e71cd2a5ef70d8d4a54c611635c21fd6809b3ee5939c2605ee70f7c82695d6c93e9feb63949c28704b9a4fecb84201447a58eb07e64e3740d54188a096a71dc0db", 324, false);
+    bigint_from_hex(&reference, "5dbcb76df1fc1b90e42cd97511ee01578454a14081fb26e251fc45cc3c5e9e473a1872f4037e56547d07a366a5d03145a4abc3b744cc9c0aa4ee553b1be6bb9e4a2333e9979a75da7a14adaa9873f9683f2576ceca270f1bff7ffb6bffff7feffbffffbfb8abfdef7fefeb79fb1f7f7f7cfcea3eea7bfe95bf3cfffeeff3a2ffffdd2ff635bfbfffedd77bf6bfeff5fe3ffffe59db97249ff7bedcf77ffdd79fbfcbc7fff9addbfff77cffef8efffce8d656f57feaefa13ef1df2ffff7fdddfe5ece1b675fadfdeb4bbbeeff7ff6ec5eef9ffff2f9fd7cf3efffbe7b7fe7c72fb9a4fecbf5a0f567f5fef1ff75eb7c3d571dfe0b6a79fecfb", 497, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 61
+    bigint_from_hex(&int1, "a157d8e3ac0738b05cfbd6e905cf60c207c1d906f1df89e8bb0e117c8a25c9f3e3f865bb85442beb99c0a17e72f2cc3c6863045c08c7aa89639c4b16866bc891aa4ac7639a4c3954c1a2cbf49", 153, false);
+    bigint_from_hex(&int2, "f083ad0e4bd973aeb0d71e6696483e07334838d245341553c5429f6c780ae0656c9b778abca3691ed65da270b0c31b31b3f3bc2dc4bac844a790515b57074c6f70efb76280d5a6c73009516b7f099", 157, false);
+    bigint_from_hex(&reference, "f083ad5fdbfbffafb8f75effd6e93fcf73ca3fd3dd36f5dfcdeabf6e797eea65edfbf7fafdbbed5effffbbf0b1ff7bf3fffffc6fc4fec8c7af9973df5f17ce6ff8ffbf6ac7f7becf395dd1ebfffd9", 157, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 62
+    bigint_from_hex(&int1, "c4f5d01d5433828a6150f83b0f126495eb8a7b7aa1801547a8b80939ec56fb569d398c89e4e821b6818a77d398917645", 96, false);
+    bigint_from_hex(&int2, "3027e52667e74b821974aea69cc34545806c07ffc713800e2919144aa714f4d7a188a63339f575b10c71f3cd572ce6f45eb42a7dcc89f08f7219c98f6c7b4df7a2fe57379a1094d19a400f9e", 152, false);
+    bigint_from_hex(&reference, "3027e52667e74b821974aea69cc34545806c07ffc713800e2919144ae7f5f4dff5bba6bb79f5fdbb0f73f7ddffaefffeffb43f7fecb9f9bffe5ffbdffd7bcdffe6fe77b79b9af7d39ad17fdf", 152, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 63
+    bigint_from_hex(&int1, "3870a1aa872efdbd576298f758115c572fe905783cabc5f2682ef85d06bd", 60, false);
+    bigint_from_hex(&int2, "2f2f73d62e22c7bb428779582d8d8bc14b254cebda0cf9e4815df2dc9dad18e58c157bd39209172cb03c8b8099fe573f60bd1ce17304e894d2e99190fc9def2ff286d99bf4c5209615ca422e940b5438ecd37f26e0378c6c349ff0fca565503dd4525ad18759e3f6ef679d5c89e7d35fed12c068a41bfcf2f7850ece52388187e17227b4748b21b37e3ef14ee633f9eac09e20cabe2a8275f88448dec521b151189ae231ce59375993a302392592246214d17ee9c419f15e4da177007fe987b98c8562a1835371", 398, false);
+    bigint_from_hex(&reference, "2f2f73d62e22c7bb428779582d8d8bc14b254cebda0cf9e4815df2dc9dad18e58c157bd39209172cb03c8b8099fe573f60bd1ce17304e894d2e99190fc9def2ff286d99bf4c5209615ca422e940b5438ecd37f26e0378c6c349ff0fca565503dd4525ad18759e3f6ef679d5c89e7d35fed12c068a41bfcf2f7850ece52388187e17227b4748b21b37e3ef14ee633f9eac09e20cabe2a8275f88448dec521b151189ae231ce59375993bb72b9af972effbdd77ef9f759f15e5fafff057ffdaffdfeed6ef9df57fd", 398, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 64
+    bigint_from_hex(&int1, "fea534bfc0c83b1b33075ff8fd5e337795aca50735399a368d59cff4a6677b879e466bd7aa75229f07655941b9f5e53bf38746526d0c35fe7e06887f374a735ab63e0f2c5d7717f0d089d3836d0072cc81062300a8c9384c694a2fa6777a90a508601d7573dfefbc1400e43c3f36fc676f9d0d5cecfcb3881362e74c4e7068fcd7f9ded2082819bec174ad3ccac71b85c4228f3e8235c0be74c50e6eec4a6fc5372e611fc30abde24d5d79211e1645fe57aff3a1eb92ec04b94bd186a1ee25b04a8d46819234c66f6e8c4ac4fdd6ac21ba293b3e9f66a63aefdb713b3e42cf84c1912afd852eb15b710c0df0c31864eea22bbc81d9fab2da3", 497, false);
+    bigint_from_hex(&int2, "38c95d50b3cc1bb4489aa4cf5fbe4c913abcfdaf4b3768c4d353d1a4ddcf600e27016e12dbfdb243563a39c81590c16595f96d84c4929b6346f801678f2bd373bc73156530b83581a1fb52bbf145140e880102596a57b81d0af4ae06897a1843704b2ac5fc1f83d2ee69f647d87ad2a12edb3d9c89ffee33aff541969ace4c50802618dd643ffb457f5c97d2ef6aa55c4bf4c12eeab189417987d775917bc29df56aa89ffd3f3421a252e08", 343, false);
+    bigint_from_hex(&reference, "fea534bfc0c83b1b33075ff8fd5e337795aca50735399a368d59cff4a6677b879e466bd7aa75229f07655941b9f5e53bf38746526d0c35fe7e06887f374a735ab63e0f2c5d7717f0d089d3836d38fbddd1b7ef1bbcc9baecef5fbfeef77abcfdaf6b3f7df7dffffdb4ddef7c3f37fd6f7fdffdfeeffebbb9db77f7cd6ff5f9fdd7fddedb6b6ef9bfe7ffaffffbff7b95e532bf3f83b5fbfefff54f7eeeca6fc77f6e77bfdf0afdee4fdd7b395f764ffed7ffffa3fbfeedf6ffdbfbd6a1eeffbdde8dffefb3bff76ffe9ececcfdd6ae39ff6d3fffdf7ffebfffff7bbf7e4bffc5effbbbfdc57fb7df759d7ff2dffd6eeebfffbfb5f9faf2fab", 497, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 65
+    bigint_from_hex(&int1, "7eebaeb4503f89839e477df6686d615649d8aeaead80db82aed865d34c5776185362a2591833efe0bb986c098a5feef18b29db1eba0642f67ba05d8bf8f3709542340110f4d55be171697213951eb2a0a0b92311fd6e6253cca91420453dbdbb70c776d6af6ee3564b0683c46889477c28bd9c14ff3f0645c7147fac9602a6ff393305208ef71d74", 272, false);
+    bigint_from_hex(&int2, "104cace2238792540f095ab", 23, false);
+    bigint_from_hex(&reference, "7eebaeb4503f89839e477df6686d615649d8aeaead80db82aed865d34c5776185362a2591833efe0bb986c098a5feef18b29db1eba0642f67ba05d8bf8f3709542340110f4d55be171697213951eb2a0a0b92311fd6e6253cca91420453dbdbb70c776d6af6ee3564b0683c46889477c28bd9c14ff3f0645c7147fac9706eeff3b3b7d25cef79dff", 272, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 66
+    bigint_from_hex(&int1, "1ba9860f1734ee680784f468b72880ad9b76939265594bef896cd24218178083849de598ea74e5f8e66276d06e923c968ff7c66dbb873d79af5cff01b6742ecfc9626d5f07d3ce8c1281b1119d2f0b0dad1dd88c3cfddf9911e9e08ea1211fd64d45f465b548793c28f3e471f7e30f7de26857175100b1715a316d5a40046d0cdac4876cff3a814f89848b2a714fb950bbbaecff81cc468ce1e0d", 309, false);
+    bigint_from_hex(&int2, "aa6422f403b8a226ae2163ab119d8b0acb339462debf4a1a87815a6c66a6292470ea2f0563c6825b72e1a0844da88f9b40d66d8f6a4cba979dda", 116, false);
+    bigint_from_hex(&reference, "1ba9860f1734ee680784f468b72880ad9b76939265594bef896cd24218178083849de598ea74e5f8e66276d06e923c968ff7c66dbb873d79af5cff01b6742ecfc9626d5f07d3ce8c1281b1119d2f0b0dad1dd88c3cfddf9911e9e08ea1211fd64fe7f66ff57bfb3e6af3f67bf7fbdffdeefb7f577debf5f1fa797dfec66e6f9edfcea7fcff3ee96fbfae9b2a75dfb9f9bfbfeefff7eccfadf9fdf", 309, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 67
+    bigint_from_hex(&int1, "4735a7fa57c9fc8aff146469638d7b546c933202b51a256e583da331f3d38ef4a5a83419c487d112668a104b345c8752a358a2bb3043da0cdff65e08d32751c057d57a0672afed4128d8", 148, false);
+    bigint_from_hex(&int2, "af7208b2ac552bba3bc6bb19f4c2f20dd6179a85054ccd9909c7ffac5a5266d5e8cedb69bcfb1a5ea669bd7715ef202e9ff799cf1bcbec54f13284de74f763c50fe52e20b57cb43dfe13943a806f7674926dd1ff953fbcca315d6896489f84d8b6c578c7bf7d8f0fdbfbae38b8213e3bed1d5e69296ec3aec5cede95052cdfa2718898a9fd11ff447a4e0c8312a7c19f547d258107a351b71fbaa6940c0e007c7e289639", 328, false);
+    bigint_from_hex(&reference, "af7208b2ac552bba3bc6bb19f4c2f20dd6179a85054ccd9909c7ffac5a5266d5e8cedb69bcfb1a5ea669bd7715ef202e9ff799cf1bcbec54f13284de74f763c50fe52e20b57cb43dfe13943a806f7674926dd1ff953fbcca315d6fb7efffd7d9fecfffd7ff7def8ffbffeebbba23bf3bed7f5e7dab7ff3ffcffeffbd353ddfa7f19afeabfd5bff5cff5eafdbb2bff1dfde7dfff75fabd3b75ffaf7d57e0e72ffff69bef9", 328, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 68
+    bigint_from_hex(&int1, "ebfa64f62e0098cbb9e707c1b909156e47b15b427b7d8d9517c6701a855271fe9227818599412c6bbcac5e4d2e88c7b6a38e944a914544698f7a5a85f8174b78eb26254b7148658cd5df015423343cb545868c9dedad5a02010b1e21c2d987067ee4ccb9c036e95d10bde370b029a6176c799d17356d6f3827534b1321116b6262f00fbf8fbddb16718007c142da081d76a3e283c7620680c82f27de0b0a92a189f3992eddb078d3ebc1a", 341, false);
+    bigint_from_hex(&int2, "3d66abfd9e105b1673d3a1cf2d79b869a807b93efbd3bd243fe9f0adfdfc7cc1f8915a42ea0c67889400fce5fd950d3d9e61ade087bbc6f848a5f832059924ea57bc96249ff76e0d37540d58c5fd2f1b7eb5d1c05723e0bb7e045a7235932696ead904b6d1267b8f24c789e2f84b447bbbceee45c6052a780be67b0b593cb71cf849c7125113ef427d16c9e2f7f307f9c06f8192dd2a0046ed98ec9c80d303d59a977be5a58cd98e8111f1122b627e6675ba9bf4955725d969920bb09e3d987a85b2f79d157990ce6bfbe616e0b09eddacd7702611403d0f4420ede64d9d36b33bd4d1bb9a04f68baabbd8fb5cdb28edcad65855d517956af5268ba3d41f708", 511, false);
+    bigint_from_hex(&reference, "3d66abfd9e105b1673d3a1cf2d79b869a807b93efbd3bd243fe9f0adfdfc7cc1f8915a42ea0c67889400fce5fd950d3d9e61ade087bbc6f848a5f832059924ea57bc96249ff76e0d37540d58c5fd2f1b7eb5d1c057ebfafffe2e5afaffbbe797ebf90db7ff67fbdf66fffdeffd5fc67bbbcffe75fe972ff98fff7b2f7bbcbf5efd6fcfd7f7b3efd67f97cde6ffff7ffbc5ff97dbfdeb2667eff9ecfd8cd7dfd5deb77ffdb5cddf8e9dfdfd5a2b637f7e75fadbf7977fe5ddf9d23ff9df3dbdfbf5b2ffbf177df9df7fffef7ff8b7dfdfbff7716f7362fd0fffaffdff5ffdb6b7fbd6dbbb9f76f7ebabfffaffdcdb2fefdedf5ad7f59ff7fbffffbbfbd7fff1a", 511, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 69
+    bigint_from_hex(&int1, "97ed7c38f2ff05", 14, false);
+    bigint_from_hex(&int2, "10101d4296269fc8e767", 20, false);
+    bigint_from_hex(&reference, "10101dd7ff7ebffaff67", 20, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 70
+    bigint_from_hex(&int1, "277fa91495f8b6fd340bf", 21, false);
+    bigint_from_hex(&int2, "e48c1adec549294f9c9a5c293058d32247a0070f5a62f96ccacb29a6e7f90a8cda1177954c9f3288953a594d878416c44ac21287c7f80f866f6525bb7352ae95a9d30f30d10a6c2ac6936a0b6ee7a1eae0425f1a9", 169, false);
+    bigint_from_hex(&reference, "e48c1adec549294f9c9a5c293058d32247a0070f5a62f96ccacb29a6e7f90a8cda1177954c9f3288953a594d878416c44ac21287c7f80f866f6525bb7352ae95a9d30f30d10a6c2ac6936f7feff7b5faf6ff7f1bf", 169, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 71
+    bigint_from_hex(&int1, "20a1e4", 6, false);
+    bigint_from_hex(&int2, "d62c7e1843eb5ff14645533acc1b2fe73cf36165c8d60c4d3b5eda96a4ffed430eccd5a7cd86714cb358d153b916a951ea88ded4c0f9e589206fff210f309990da8efaab594ab5ce492ebbb767fccc2471df6105f706bc050916b7640e470f8022ab7e8bb98f6a975e5190ede62852509e9f095ee0c2d7d94f44c8343fc48902208b0c8", 263, false);
+    bigint_from_hex(&reference, "d62c7e1843eb5ff14645533acc1b2fe73cf36165c8d60c4d3b5eda96a4ffed430eccd5a7cd86714cb358d153b916a951ea88ded4c0f9e589206fff210f309990da8efaab594ab5ce492ebbb767fccc2471df6105f706bc050916b7640e470f8022ab7e8bb98f6a975e5190ede62852509e9f095ee0c2d7d94f44c8343fc48902228b1ec", 263, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 72
+    bigint_from_hex(&int1, "4425570e61d4d0556c41ac2e66b6f8f7c9b14baddd91304ed2454c459403eaaba5dc734f9e87283318d8f2f5f2465623c3861090e28ce362b3caa418af97b4d735c532e06e78b4bcf3c8d315c000cb6740e7002f44210344d3a10e4f897d5414d169ab2265ffc757a2d712fd4511eeda17afd5bb057badad913d32f68eaade92814062e7c3cfcb04ddca351cc2556fb84765345020d047c75a0e7a2222685288d2ead6f42677aecf2a8cf83", 343, false);
+    bigint_from_hex(&int2, "dc3afa8d431f0c474ca0d8c0de87d343a140fd7a5d2fa823e2235f83ba6a867aa6b94283410a0cd63128f587f8af8d0e1a71735fe6029c0cecbba2000fedd1fa4b33d91ef562ebff7f457b17b81b4caf3070c5ef37c99eaa19beaf08cc43494830451b2b6d6fecbaea8f0ea603980509cc1c6deff27fc9b81df2bd62b56bca84f000d00d48edd41d5c59ca0ddd05ec2e9d15ec6f862ad68e1004e0d406d19777dc8b862e92f4c312bdf69dbf2a3fee2bff823e8b7c939ff9ac500f427cdd6ad243c901a131d68327d6e5a96d97723a671887", 420, false);
+    bigint_from_hex(&reference, "dc3afa8d431f0c474ca0d8c0de87d343a140fd7a5d2fa823e2235f83ba6a867aa6b94283410a0cd67578f79ffdafdfce1af3f77fef8ffc9ffcbbffd91fedfdfe5ff7d95effeafbffff75fbfffa9b7dafbf7fdfef77ebbeba79bfaf28ce776b7cba459bfb7f6ffffefbaf0ee78bdbcf3dcd3d7deffefffdbe7df2fd62b57fcfbef0e4f89fddeddd1fdefbee5ffd75fe2ffd3ffc7f9eeff7fefd5ff0d7bedbdf77dfafeeeebffdeb16bffefdbffebfefffffd3feaf7efb9fffff550f4f7cfd7ff2e7eb23a7b5fe8f2fffefeb6ffffefaefdf87", 420, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 73
+    bigint_from_hex(&int1, "801d2dddb2f", 11, false);
+    bigint_from_hex(&int2, "38e14d61002e9783d738eb7443daa30a4a4e61c2895d4b1562817070f7c0fe379fcde8b79d91468aa5b35de54a87b92b8808382f2a29491e79db3882e7ff572d585f3b62ec0e24299cdb8c62ee90624e8cc9968e21f5930953d793ef3b0981bd973de8ed340bb3e709fa9abe93fbd9b9750417e1d477ab9b0c1b49c50ffdd43cbf123b7ffc0ba567682a409a9473409bc489d06cd", 297, false);
+    bigint_from_hex(&reference, "38e14d61002e9783d738eb7443daa30a4a4e61c2895d4b1562817070f7c0fe379fcde8b79d91468aa5b35de54a87b92b8808382f2a29491e79db3882e7ff572d585f3b62ec0e24299cdb8c62ee90624e8cc9968e21f5930953d793ef3b0981bd973de8ed340bb3e709fa9abe93fbd9b9750417e1d477ab9b0c1b49c50ffdd43cbf123b7ffc0ba567682a409a9473409bddadddfef", 297, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 74
+    bigint_from_hex(&int1, "707b97c70657b6f9e63f94a4c0f667c18757fadd9f0e9d4bdc16d6ef6120f847c11b429d330d535a76acd1311df1374882904d495cf2ee1c5c446d33c6b73031a2dff4250cc3a65de9fa74d943db26ac6a9bc3e804be12eaf3b8a024a11cd1234a526303a107d07166a348d5ead94922c", 225, false);
+    bigint_from_hex(&int2, "322e91282effc0c6b9bb1f8ba982d528bed0d9e9f75a54ae74d603cb42631c62a963d4efb25d3f59c1af67eec042a2326c4875bf71f01d74563f35e2a684e81c0d1bf3834eba746f014647c007786cabe0ca4ac7d47c57c6f4293c9652f93feda849aec117c7bc60659dddf89563ee6f83400b3186adaaec5a0d94793aa03b4337821a3ed6f09c5f1d3e8e541ed30803c368fe4b414769369df114aa717b179973e9d76c28bfe358121ca408bae89", 349, false);
+    bigint_from_hex(&reference, "322e91282effc0c6b9bb1f8ba982d528bed0d9e9f75a54ae74d603cb42631c62a963d4efb25d3f59c1af67eec042a2326c4875bf71f01d74563f35e2a684f87f9fdff7d7fefbf67f95e6c7f667f9effffadfdfcfdd7fdfd6f6ef7db6faffffffeaddbfcd57dffeecf5bdddf9b76beeffcf495ff3eebdfeec7f3fd6ff3ab1bbdff7a71efff6fdfdff7dffcfdf3eff6a9bc3e8feff53effbbebdf5b5bef17b5fdb73ebf76ff8ffe7fb5addeed9fbead", 349, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 75
+    bigint_from_hex(&int1, "12851e168491da08a9eaa5c046d85919d97bd233aaa4592852ed38b610118af3d", 65, false);
+    bigint_from_hex(&int2, "74384008b64e5a4d3e832edb34848517a424bb330a9a93bfa5fb5fb01e3e3d9cb98d73aed33ae8e0db75ec37dfde15b23ab3686a2c5f62a25de3243fa277e10522331205bc1318a55219a6312dc04f620ea17d73295a8554d51cf80d965e04125bdb945d1fd258bc8774e72635bd485e446bfa0ea99dd79d84613488c194df0f230fbb21316ce8a23ce9f1cee286d0fba3319d5fd7566e3b70a0df59fef9ed4dd5c5e3b24096337aa536f7c04fb64c56d5e52e081b66980613780b62f0e577fd6a63c12c258cacd82fa636f6dfa90486a8191482e007e6c24157f60ba", 441, false);
+    bigint_from_hex(&reference, "74384008b64e5a4d3e832edb34848517a424bb330a9a93bfa5fb5fb01e3e3d9cb98d73aed33ae8e0db75ec37dfde15b23ab3686a2c5f62a25de3243fa277e10522331205bc1318a55219a6312dc04f620ea17d73295a8554d51cf80d965e04125bdb945d1fd258bc8774e72635bd485e446bfa0ea99dd79d84613488c194df0f230fbb21316ce8a23ce9f1cee286d0fba3319d5fd7566e3b70a0df59fef9ed4dd5c5e3b24096337aa536f7c04fb64c56d5e52e081b66980613780b62f2e57fffeef3db2cadeeadd86ffe7fffdffbd6b7aabd5daaf2effef65157fefbf", 441, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 76
+    bigint_from_hex(&int1, "5d35a8ab2fd77bd8df65b2512d28b43b3fe39dabea349902f1a4167a896aa32bef19cb41119442a38d860fdc1b91bb8edb6c1afc99f22cda43cff76c286cfba75347c2d1f40f2e224c4daed0fcb9d0cb43e312bf3d50ae8813f36d6add5abfc6dac4540dd8ac9cc87f3fd55e162df2bc28fdf6f4daf957f521bd9659c551995c591a80285", 265, false);
+    bigint_from_hex(&int2, "2f16132a27d4f", 13, false);
+    bigint_from_hex(&reference, "5d35a8ab2fd77bd8df65b2512d28b43b3fe39dabea349902f1a4167a896aa32bef19cb41119442a38d860fdc1b91bb8edb6c1afc99f22cda43cff76c286cfba75347c2d1f40f2e224c4daed0fcb9d0cb43e312bf3d50ae8813f36d6add5abfc6dac4540dd8ac9cc87f3fd55e162df2bc28fdf6f4daf957f521bd9659c551bf5e5b3aa7fcf", 265, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 77
+    bigint_from_hex(&int1, "11a6a859be7eb6c4d083fc552e2b17d3d6ae98b1e54c7d1354825a783872b4e08bda452b401dfedd1eaad58693d787fa9afd643b318321e44263eca54a7b0ba4069246c5f5a7ffad699c325fb4275d246b8ecad24b4d3f7d4b1e1ed526bb71cef6c743cad06fba63425d4601e75e5fae6957e8829fd914f9021c9c982242fda3fb0cfd57790dae4fcd0d6ce7c4e695ec948a29e638066a3c20a3386a5882b0", 318, false);
+    bigint_from_hex(&int2, "2eb8437c3be1c911eb36976536e80834fed76228465913bf762b4477089412ec619c8f95017f1efd6bfc63f4c1a041e9d3ae3286da5b8666bd7c0e3d513f603b33beac505d546522fa409c496da2b5d74a303ac12794dcf2ca24efed174c85b449e844ee5639fd7f71a2a20e538ae4e0565d2d53f5c89c95def94feb4928e721c0541e834652dfe65bd26d2e0b31cc0676e4d66b392976b4bf7bfa90b9f5ca4574a823f797870be74b6883718b894c295aea48b4a4fc345585617347b91a0f1bdf7524090e931344f65d3e6df1e2b0faafee25dee6f21437a27949b450b805be7a903fdbc1e72", 461, false);
+    bigint_from_hex(&reference, "2eb8437c3be1c911eb36976536e80834fed76228465913bf762b4477089412ec619c8f95017f1efd6bfc63f4c1a041e9d3ae3286da5b8666bd7c0e3d513f603b33beac505d546523fa6a9ddbefebfddf4a3fffd3e7b5fdffeaedefff57cfd5b549ede7efd73bff7ffda6f2be53dfedf1fefd7d7bfdf8ffbdffff4ffb593aff65e67eded7e7f2ffe67bf66d7f5b7ffed6ffe7f7fb7b7df6f6bfffffb4bdf7ffd5f5e9eff7ffb71fef6f7cbffd8ffbee3d7ffe68bef5fdfef7957ffb6ffd9b4f9bfffded8b2ebfdb7ff6dfff7ff1faf4fefffeeffeeefb5effeafbdff7d0fea7fe7ab3bfffc9ef2", 461, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 78
+    bigint_from_hex(&int1, "396e40126ba147ca8b10d8f4f784adeb9d9698ea385f365d9df3837294c2755c2e787408e86d7678f3afa4837a64e717fb3f494c364af6fc2245a2111a68d394fdbc42d17abde07218787e4e4b3a8dad7886dfcd5412a5fe7a0d7e463c168483dbbefbe6129350de9219b84d65061b6d3414fe7b97da0dda1482ba6a2a458d34192fbae3e0235dcfd6e6dc83688b5e5910a5956f2d3fb8f5428d1e5523eb7c53fb3978f25ffd29b8c8a9c8c92bc41188135ec7a50b517fbfee0bacc33e0e3b47a6812aac", 392, false);
+    bigint_from_hex(&int2, "fe76b2eb7d935b78d14e8f67e7e645bb18f493237e78215cc0b287afe6a2157311b5119b5ecb1e13df47d57c892b678052252187fef6a6de16c446994d69c8a406a3fcef04c79", 141, false);
+    bigint_from_hex(&reference, "396e40126ba147ca8b10d8f4f784adeb9d9698ea385f365d9df3837294c2755c2e787408e86d7678f3afa4837a64e717fb3f494c364af6fc2245a2111a68d394fdbc42d17abde07218787e4e4b3a8dad7886dfcd5412a5fe7a0d7e463c168483dbbefbe6129350de9219b84d65061b6d3414fe7b97da0dda1482ba6a2a4fef7f3fbffbf7f7af5deff6fefee77bbbdf5932b7f7ef3dffbbfd7aff7e7577fb7f53fbbdfcf3fffdfdfddfe9daff7bc533da1b7fefef6ff17fffef9ffedfbe4e7b7feef16efd", 392, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 79
+    bigint_from_hex(&int1, "3db52ddcab2a19a0e8d385ee3cc4d7add88c7a16904fd77a31afc6fe5999e659fd9df3eabd75c33a049c41061b05c5086e554f4b378942d8b6e7d39d686f85e164754c2421ab433ff2acea7d608907db1fbc9f35d9ef4cc41d41107fa6077030347c8d799c370359051740ebd9ad1600e114363401600293727052f2f4ef49f3f8ff7b06ccc7aab68490d1a37fde20d83d1101f7774ae1be8c223f8a7e90ba6448a778679c978f719d15d6ffe443b9801539", 356, false);
+    bigint_from_hex(&int2, "493f6ecd7fbffdf5acf48a50f6cd2e12b33472fa39961cca2c827d9575f584b2ad54ec1416dcc97f5abff20266bd5f4367c6ca9019e4886d9c82e92006f175a48c7ca9072cc72047672449cdb470b8f09d63a0edd65a164eb", 177, false);
+    bigint_from_hex(&reference, "3db52ddcab2a19a0e8d385ee3cc4d7add88c7a16904fd77a31afc6fe5999e659fd9df3eabd75c33a049c41061b05c5086e554f4b378942d8b6e7d39d686f85e164754c2421ab433ff2acea7d608907db1fbc9f35d9ef4cc41d4593ffeed7fbffff7ecf79bd3f6fdbe53f73efffaf9f61edb6fe37d9775fdb7b7ad7fef5ef6dfffffffbffece7ebf7f4b6fdefffdfbed8bfd9c9fff74aefbfde6affcafef2fe764cf77a679cdfcf7b9f1dd6ffeedffda175fb", 356, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 80
+    bigint_from_hex(&int1, "219836daa3f86c0b849e4620757408353c0fb813b3d5a", 45, false);
+    bigint_from_hex(&int2, "2aaaec9b1ccf6e904108d051362905bd416893adbb991683882526964502759e30fadf049c025436232ef", 85, false);
+    bigint_from_hex(&reference, "2aaaec9b1ccf6e904108d051362905bd416893adbb9936dbabfd6e9fc59e77be75fedf35bc0ffc37b3fff", 85, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 81
+    bigint_from_hex(&int1, "fa7b9d07f0e6677a7b2cf15cfd5cb5dc2a7f0aac71ac744b9fd71d605db8a92c301647ffc439392b6d0f52675331d3b75bfb6cc650f2ca74292f8bbd1ec5ff0514958cb4ea99780fb4038ca20cb01606b2664aaa0452bea37fb79f94eb6123e40f3d5b81eb42414c4d10f6549bada371485e660bc741ccfa0c36955283e27da", 255, false);
+    bigint_from_hex(&int2, "da37f4defddec4094fdb724ef7432447f2e3a30a8cf01f1e0abce304ca6c858e507b0a36794c46c227e4772d9616c596562c5d5b9e5aeba03aff3907e0ddea01a94c4665629e3141236816b45bbbb2054893ef816c4348345574fe69daf10c54152e9b2ce861942bb379b176fc8e829b3f5db991c4b8c1615cdf2f2df3431f4ca02fa58a53510b2f0bd645b784a1aa033b2a08d1f2c46979268d2038be827574011df39bf2923c201095cdc11f86d1bed231087956ac9a432fb5d9530b4c70cced3bfe51a6dd5", 397, false);
+    bigint_from_hex(&reference, "da37f4defddec4094fdb724ef7432447f2e3a30a8cf01f1e0abce304ca6c858e507b0a36794c46c227e4772d9616c596562c5d5b9e5aeba03aff3907e0ddea01a94c4665629e31fb7bfd17f4fffffa7f6cf3fffd7cf7dc3e7f7efe79fef54fdfd73ffb7df8e9bc3bb77ffff6fdbfabff3f5fffd3f5fbf77bffffef7df3cb7f6dafafbd9ed7ff0f3f9fdef5ff9df9afb73baeaaddf2d66ffb66cfaa3cfebef77fb79ff7fbf3b3fc2f3ddfcdeb5fc7ddffd2f75cfbffaffb4b7ff7dbd74bccfaccffbffed3e6fdf", 397, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 82
+    bigint_from_hex(&int1, "1b807991e589086bdca94c049026902a98cdd5dc76bd9949b2a8e8f5f63ca27315a4dd21231ca2f23376417647ecf902eb8186341bdb80394412159b0c8eba7a0a2c935b4d1edc709e60aff0030c3b20672cbbbe3f1b5cdb8373b55e6036482f5a5e293b48697bbd8daa049c2fafbee21a44d78b07a32dc39c3492a3ada5c08b0f4e67e7a67e58a46c472b7d6256caf6bfd60249f84f9bccaa32948e45dd46652a86627bb6d6f7669e85d5d51ce7e37da93c40445f0ecc5f81e15ed32472aa42a89c906d650d759e4534fa805830f7d4407ea1a680d8fd97", 432, false);
+    bigint_from_hex(&int2, "10e5f5ae653590dcd8d5eac6442566541d31fb02c6198f0a8f6c2aa0c0b5734f439d8b71d46aae99cd0752d500158d61c619d98adeca1f3cf2ce9800ba3bf7d68748de264dfde43faf46775a390d0a99", 160, false);
+    bigint_from_hex(&reference, "1b807991e589086bdca94c049026902a98cdd5dc76bd9949b2a8e8f5f63ca27315a4dd21231ca2f23376417647ecf902eb8186341bdb80394412159b0c8eba7a0a2c935b4d1edc709e60aff0030c3b20672cbbbe3f1b5cdb8373b55e6036482f5a5e293b48697bbd8daa049c2fafbee21a44d78b07a32dc39c3492a3ada5c08b0f4e67e7a67e58a47ce7ffff6777dafeffd7eacffc6fffdcbf33ff8ec7ddcf6fafee6afbf6f7f76fdf9ddff5dcefeffded3f52d55f1fcd7fc7f9dfdbfefabf7efade986dff3ff7dec77cfea65dfdf7ffef7ef7feb9ddff9f", 432, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 83
+    bigint_from_hex(&int1, "71395ece146037b66200c1b95bcb02cca22d2f64ed257a6e17f386ca82b09e60fd4601835fc3228fee00376b412da8dbbd2fbf9f0", 105, false);
+    bigint_from_hex(&int2, "72d4b41400e9d36374f767727214bafa838f678ab110163722e30e0cccbc363b517d71a4748375def12a0ff847e17aa54f16777a1aa90cada5f8cbc626b0d6da0d6ab8b1231ccac73456b07f62e93dab1e9812e079a23834724c28050f317adf35309ddc870908097116cfca5381a30de9390c9a4d94888bde5ed4af7d518e8c5735779e484201fc146db2c6762f77ac4e5562dfffdd2854d0cbb14e1226d3bba4e0322d7ad5e69b9ef70b90b9ecbb7719aafeeac9520c76c3027de6582e02f875f64dd70e1ebbbece840b23e652c9cd7cdb839590b3f1c2767c2a762fdf42ac3fd2e697b2f9229867923ff57", 473, false);
+    bigint_from_hex(&reference, "72d4b41400e9d36374f767727214bafa838f678ab110163722e30e0cccbc363b517d71a4748375def12a0ff847e17aa54f16777a1aa90cada5f8cbc626b0d6da0d6ab8b1231ccac73456b07f62e93dab1e9812e079a23834724c28050f317adf35309ddc870908097116cfca5381a30de9390c9a4d94888bde5ed4af7d518e8c5735779e484201fc146db2c6762f77ac4e5562dfffdd2854d0cbb14e1226d3bba4e0322d7ad5e69b9ef70b90b9ecbb7719aafeeac9520c76f33b7fee5c6e37fe77f6cdff5fdfbbfeeead2f67ef77fbef7ffb87df92b3ffe2ff7e2bf77fdf62afffd2f7fff3fdaadbffbfbfff7", 473, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 84
+    bigint_from_hex(&int1, "43b4f2cab4f1cc19b04004c6b654f7580f484b30a1f24e38e22a49513eec9e", 62, false);
+    bigint_from_hex(&int2, "d1a4b91825726e6a3039b11f805d6161ddc5df39647994651b25ca376cfdb496a745899d0508f910aff2c2a727f5ab3a6d9e800d3795a17bf5bb6bfa745f1de4777fe74cc2782e31c0af5233e81533d075218fb619478f3c3848228833c29c15d4ad5df9c2fed4f8bfb8c2b5b6fc9a1", 223, false);
+    bigint_from_hex(&reference, "d1a4b91825726e6a3039b11f805d6161ddc5df39647994651b25ca376cfdb496a745899d0508f910aff2c2a727f5ab3a6d9e800d3795a17bf5bb6bfa745f1de4777fe74cc2782e31c0af5233e81533d0753bcfbebb4f9ffdbb4c22cc7be7df75d4fdddfbcafff4fbbfbae6b5b7fedbf", 223, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 85
+    bigint_from_hex(&int1, "59b8ccf81f9cae629333ae178c5869886872c9b90446fc937faae46d755df9872e53f4e634460a3c838e5603d807eb1c67fee3e3b14f7d31a69b14a731c51f62db517ce28403dc4199b7f3aea94cdb0e9d678a40651dca02ea1e90548533ad3a8f120c0a7bbea81033ce1b83889c1445a9a7920116216de63d323d3d1d4a4c34a34704758089ad", 270, false);
+    bigint_from_hex(&int2, "5d2bd46d7c2db0f89810d2de34c500ebd3f2d28f93cbd604b1e0e91f4d506aa73642713c80a5e6d7c958cd8302adb27bca596cb5919e3f9efeda24ee0cb9bf78020405594ee6130b540f66758e25a83be1cb372ea88530e28482cec6391fc185bacf391c320026840906422af42ff1870181cd8290e85be843d544004d3f4d202cf866733fc5d12357a200de89be680d6d8deec10e4142936bf17e80e4e2aff4eb8264444a14e9d63d02c59467a7363af7757554226", 363, false);
+    bigint_from_hex(&reference, "5d2bd46d7c2db0f89810d2de34c500ebd3f2d28f93cbd604b1e0e91f4d506aa73642713c80a5e6d7c958cd8302adb7fbcedfedfddbfe3fbffefb7cef8eb9bfff2e9f955d6fef37fbfe4ff775dfbdfaffffcf776ee8a7f8fae5e2ffc67fbfc7fffeff3b1cf7d33eedb94e733ef5fffdb717cfedc2bdec5bfb7fffee94cdbfedf67cfc6673ffe5ffa3ffa748dfbbffe8fd6dcdeffbeec143bfebf97e89e5e6fffefba275665edeebd73fd3d5d4e7e77e3ef7777d5cbaf", 363, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 86
+    bigint_from_hex(&int1, "13ca208b942839f3162bd3c4f6b868931a72120184bec557a897c52b4964a4856d908186a91ec3dc64288696fbee82", 94, false);
+    bigint_from_hex(&int2, "4356b03d723af1", 14, false);
+    bigint_from_hex(&reference, "13ca208b942839f3162bd3c4f6b868931a72120184bec557a897c52b4964a4856d908186a91ec3dc677eb6bffbfef3", 94, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 87
+    bigint_from_hex(&int1, "9f1ad9e77", 9, false);
+    bigint_from_hex(&int2, "3173463699b83efeabdcedb360b82b68ae8ed6dd169f5e8a3d7371f74e7a51abb24ea8ba55ee4731a1f96b8d26809cab6bc7e321623ad2da4c42afb4ae7b265d316f365f7eb9f38fdf746d78210b575c33c0dcb154a88a8240ae3c1a1efa64247fabd321a33ffa6371ab4773216cf9a8548c1d8ee0be6b786691282d0337f07935ec9838ae37c29e38b8af8f0754b26e98df6646afd44d977eadedb8702f2c27d7c5365c0bd8569d460c05757d13de6248a328d9d8d6abc0c478b7609b901431f71a2131d0bce87a392ecb70742bc6e14a54", 420, false);
+    bigint_from_hex(&reference, "3173463699b83efeabdcedb360b82b68ae8ed6dd169f5e8a3d7371f74e7a51abb24ea8ba55ee4731a1f96b8d26809cab6bc7e321623ad2da4c42afb4ae7b265d316f365f7eb9f38fdf746d78210b575c33c0dcb154a88a8240ae3c1a1efa64247fabd321a33ffa6371ab4773216cf9a8548c1d8ee0be6b786691282d0337f07935ec9838ae37c29e38b8af8f0754b26e98df6646afd44d977eadedb8702f2c27d7c5365c0bd8569d460c05757d13de6248a328d9d8d6abc0c478b7609b901431f71a2131d0bce87a392ecb70742bf7edde77", 420, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 88
+    bigint_from_hex(&int1, "167f601d1243fae3ef6429e91be521af4a99262363b0abe9d96927df7560b6ef959eaf5f52d79c637425de437de7c44f2a9ef3167803e9a785d93871cb42e15d09f76ba70c7b2105a947a8c0b08a3eb0552a91a1dfff67e245c2f97e2e2a6c45e9eebdf998d5cf924e9105be6e6bb40918b2206feaf648ef0475120f87783ca1997b9fb33d1132d2428ac28b68aa2f7be1072ff1e80590c0449708c358a6a71845cbc8e4da9a94eba6d43ce6a55da56dfc1f510d974a532486f23e5cac8e85fb0c9331baf10cfdbf939f8479ddf7a763a42423d4ee98b0a6608089219f50d42ee7b8a8", 454, false);
+    bigint_from_hex(&int2, "15e1a161fefff8ff74bccabb711fdfa12b94ecaaccb354f29ffb6409e81be666ebb37dd96d54eff44e437e9a56887eb1935bbdc9355956e14384957333d4016d5669b75a19d595ecb549fc13569fa8e59e94e473800ee4e2cce61ee49afa024369a299d136ad5d8e7ee41bc5c4d83679c47cdb3cec02fb12a7b120490684ae3cc0332cc77acfbbf7a3e514ddaa90012d9a7d326a1632a3e992849af2ea90e09dff49b3d9b79ddd76b0fdea07f4c943798dd1158c6c16c2f3c750793c1d73941d7a2426c17f921dda02838884ef213708e9750df989a051d9633502947b811ccdbd3ff7dba41a3", 461, false);
+    bigint_from_hex(&reference, "15e1a161fffff9ff74bfeebff75fdfb1bfd6fefeedb376f6bffbfe9dfe9bfff7ffbb7ff97dfefff56f7bfebf56ddfeb7df7ffdfbbdff77e7c3be9f7b7fd7877df66fb7da9ff7bffcf7fbfc5bd6ffacef9eb7ef77d2affefffff67ee4deff97e3eba6dddfbeefdf9ffffcfbe5edd87fffe6ffdbbdef22fffeaff5aef947d5aefcf7b3eedffffffbf7f3f73dfdaabc29bf9afff7fe1672ffff92dd9ef6ebf0ecbdff6bf3ddffbddf7fb9fdeebffdcbcf7bdddb57dfedf7d2fbf7f57b7c7f73f5dffaec7ff1ffb31fff12cfdbfdfff9779dff7f7ffbcbe27ddfebbf0af67b899eddfd3ff7ffff9ab", 461, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 89
+    bigint_from_hex(&int1, "d0f74ae2cd89d79c2206499b0fba5c0b362365d764ffa5cbfa22883ce0cb5cc933f6721d30813af0fe2df5caae28e0b37c02bbd3e4febbcab373b2a7c75af3a4ab437f7e63fe6c27f1e480726869ee3c841803ba950b4fbe4285b9529c59449bbefc69be9a1853d4f164345ba12", 219, false);
+    bigint_from_hex(&int2, "1999b484d37065c11e7a3dcc801e592f8d9beb9367a414a2cfc65433231326ec9a29acf2a34dc7cffb3020be812d2ea17ddb63e3f56beb70fff9bf3787d08338dd02b6113cc325ef7f6b98f098beb426e63ea7cad0cfd94c0b2cd632d2806b32053abece586aaf44b0b56c0f61d5aded4540a8af6d5b46d39b733840848aaf45b7dcd065f190ee86f4c5c99091741fb4e47c92572d6e330e07663120012a667dab93bf9bf2245ed7db258b4d4d55d69fb340c0353", 361, false);
+    bigint_from_hex(&reference, "1999b484d37065c11e7a3dcc801e592f8d9beb9367a414a2cfc65433231326ec9a29acf2a34dc7cffb3020be812d2ea17ddb63e3f56beb70fff9bf3787d08338dd02b6113cc325ffff6bfafd99ffbc26e67fbfcffadfdb7e2b6dd776ffa5ebfa27babeeedb7eef77f6f77d3fe1fffdff6df5eaaf6dfbf7ff9bfbfbe4febbeff7f7fef7e7fbf3eeaff7fffff3ff7c3ff5e4fcf27f6dee3f8e1f67bbb50b6ffe7fafbbff9ffb64dfffff6dbfdf5d57d6fff774dbb53", 361, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 90
+    bigint_from_hex(&int1, "5ce1b5a78", 9, false);
+    bigint_from_hex(&int2, "3ba6de2c90b52f0e8b3530e43e7e6fee01faf3c2241e5e15dd25dbcb3ce4bc808bf0564c9eea0c92091620658480cea2012815ab3d23", 108, false);
+    bigint_from_hex(&reference, "3ba6de2c90b52f0e8b3530e43e7e6fee01faf3c2241e5e15dd25dbcb3ce4bc808bf0564c9eea0c92091620658480cea2012ddfbb7f7b", 108, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 91
+    bigint_from_hex(&int1, "523a856edb1a470a7816e767bcc8b802094d2fb51fbaa82ce9ba597578d9633c7cb85de233ed52e876ab8c06e446ecccf7fe45cbf55e594f3a17211acd21", 124, false);
+    bigint_from_hex(&int2, "9838d9e0ee3d9c17b190c207c996d9e26d1d26065ee5940b05a11c894", 57, false);
+    bigint_from_hex(&reference, "523a856edb1a470a7816e767bcc8b802094d2fb51fbaa82ce9ba597578d9633c7cb9dfefbfeff3f9f7fb9d0ee47efdedfffed5dbf57fff5f7ab77b1bcdb5", 124, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 92
+    bigint_from_hex(&int1, "2979628c54c9eca04490a4493da7c555dd113380fbdd847b665c1005a09fd0c97a3abbab65706c9fb0113de42dfad19b04ef219a89f41a10c112", 116, false);
+    bigint_from_hex(&int2, "1c2f4d4a917f7e1c582dceab7954a06afebadaf591966691bfa6078a9a569ae4f6ca8710a96af5321b9ebb7f3a8e2b14172e5f5e7e46a61691def739929be32b128a23394e4c109360cec4ae54ecd2503e16826aeac26eb07212bfb6b1d586e10fd8040e7cc9007fbe5a811ad1798fc1c80b7e32bdb603385fc914f9a6ab8b7a4c24804c367b25579b4aa6854b97751355bc98870ac54946cbacefaabd4b0f47321c599b4d0f356aa8c284f17bed042f88dd570f613831c5c27e79f83681febf27ce7b5a86cb53df53645fd26783bbfa266920dd47056e04160910339eec6a", 446, false);
+    bigint_from_hex(&reference, "1c2f4d4a917f7e1c582dceab7954a06afebadaf591966691bfa6078a9a569ae4f6ca8710a96af5321b9ebb7f3a8e2b14172e5f5e7e46a61691def739929be32b128a23394e4c109360cec4ae54ecd2503e16826aeac26eb07212bfb6b1d586e10fd8040e7cc9007fbe5a811ad1798fc1c80b7e32bdb603385fc914f9a6ab8b7a4c24804c367b25579b4aa6854b97751355bc98870ac54946cbacefaabd4b0f47321c599b4d2f7d6aacd6cdfdfbed94afc9fdf7cf75fd31f7c2fffdfc7fe7febf27eeffdacffb7bfffb657ffeffb3bbffe66dfadddf05ef259e89f43b9eed7a", 446, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 93
+    bigint_from_hex(&int1, "f27e09fd1fd4da73794379dcd11af88ee5eaa33cd6e8439853853891d8cc120061d20352ea804e9d583f1ff5dc60ae8c19a0a988f62b01309ae9be263f6199a0d968ce2f34cff147a2a803b25f8db5", 158, false);
+    bigint_from_hex(&int2, "f", 1, false);
+    bigint_from_hex(&reference, "f27e09fd1fd4da73794379dcd11af88ee5eaa33cd6e8439853853891d8cc120061d20352ea804e9d583f1ff5dc60ae8c19a0a988f62b01309ae9be263f6199a0d968ce2f34cff147a2a803b25f8dbf", 158, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 94
+    bigint_from_hex(&int1, "23a0a4f361ec740514f0a24a0326133da9a891ac9", 41, false);
+    bigint_from_hex(&int2, "1aee42b864e2c840b80193469d55761e7ff8ad4a69d00ad03cd0379d614551ae80034cd2964068ae0795d8af2b7d7ac2887ae67f25f00ab9dcb9e72d9e8f7c72e20350879e9886dae1e5b4fc4baff2937da1c253f127f843a3be1a29e6f8b2bb5afcff0742a0ebfc6734bae5d43bc400d5c5e7a7035ca997bcdf894959101fcc69cc729da9afcfa37f10d705dc0e481d92fc3974f93bbae868131de93b2c666cc9682c36417544d2daaa19d5e77f700c1151a5c01a584622b8a3128c67180bc73d376d6cc360bb1a9d5c1014ff2de9bb12d96fc6e441a0f351b2fa6fc5520e9ae88d92647fbb", 460, false);
+    bigint_from_hex(&reference, "1aee42b864e2c840b80193469d55761e7ff8ad4a69d00ad03cd0379d614551ae80034cd2964068ae0795d8af2b7d7ac2887ae67f25f00ab9dcb9e72d9e8f7c72e20350879e9886dae1e5b4fc4baff2937da1c253f127f843a3be1a29e6f8b2bb5afcff0742a0ebfc6734bae5d43bc400d5c5e7a7035ca997bcdf894959101fcc69cc729da9afcfa37f10d705dc0e481d92fc3974f93bbae868131de93b2c666cc9682c36417544d2daaa19d5e77f700c1151a5c01a584622b8a3128c67180bc73d376d6cc360bb1a9d5c1014ff2de9bb12db7fceef77bef751f3ff6fe5f23efbfbdf9aed7ffb", 460, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 95
+    bigint_from_hex(&int1, "1866693d224ad6822e7dbbf979c8e042344e158369a1a39f6f9eec0a0ac9a4eade8621802a395acf065a9843b4c370abe8a934b91577aa2410a09b7a3f5ff646640b5676c3c6fa4166d865f03212d45f920c7b12e61b05bbc3f4c79ec42f6998fd1e9f6de927046f43ae11a500f80a3d37efca5f926707b0fb3023b4147def20eb5e33c03443e137d92978aa24fc073f47f336fa4cde2b23530194f01982c286a0202727fa7eb3b4cbe695e65b527deeadfa3f2f8a29588895c9330f42d830f18ca4e4943293d85197e97525ad8227d4d10ae6e79b0f31ef17766a766285939da157dd31c927e8c47bda766ea59130cf1e92b732720c81e7c6543ef9dd83", 508, false);
+    bigint_from_hex(&int2, "3b7aa665bb46bb5bfd5ed8702c1cd17bd2872335fc97eb0c0f46e49e1b3fd45df5b45829c854b3fbaa65a9ad2d8d3c3342", 98, false);
+    bigint_from_hex(&reference, "1866693d224ad6822e7dbbf979c8e042344e158369a1a39f6f9eec0a0ac9a4eade8621802a395acf065a9843b4c370abe8a934b91577aa2410a09b7a3f5ff646640b5676c3c6fa4166d865f03212d45f920c7b12e61b05bbc3f4c79ec42f6998fd1e9f6de927046f43ae11a500f80a3d37efca5f926707b0fb3023b4147def20eb5e33c03443e137d92978aa24fc073f47f336fa4cde2b23530194f01982c286a0202727fa7eb3b4cbe695e65b527deeadfa3f2f8a29588895c9330f42d830f18ca4e4943293d85197e97525adbb7ff6f5bbe6ffdbff7fff777e7ef77bd797bfb5ffdffbcd2feee4ffdb7ffefdf5b4df3fdaf7b3fbaee5efef7dbffdffc3", 508, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 96
+    bigint_from_hex(&int1, "f462a994228ff00f4a0589ceea8079db42f01693e0102de7f03122c6efdb494845162d9ad3b7bc96ccd06d6c4b5a5bf09cb7589daee251e4ebf99b013ee88d134d2e8c86fe7c839d8e9c674cbfddb54fd6382c15271093a46848afd0d4493a0e086141244941632a5fa17d67a8daddfebdc10e8796d0a9d7f71e3acbc8f434afaf7064dc88cd40ffc61523fd9d14ce2497ccdbd261073307bdf4ab1ff54b2bfb2676913bfecb34e18922a8066ae1c8b77fdcff4a9dcbafc4ee6fcb023d6", 379, false);
+    bigint_from_hex(&int2, "18c19c9206a081d5c3cbff9178cf465a1076cda747e66444a461eb653596e8a547b8adcbcb5d1c07f16c41fd7739b4147a23118769cd16b0edf3dbacd5eeaba6116b6fddff07b59dd1166d0f62d4d04c79668c3c6789b3d5091d09b617a41c5037c461c539e8570eea4a4c6244ca2da7036a2554bd6274911889e47d16164f60231a05262c92b7555d9a1e657efebcc8f62d71c5348dfd6e9e8b8", 309, false);
+    bigint_from_hex(&reference, "f462a994228ff00f4a0589ceea8079db42f01693e0102de7f03122c6efdb494845162d9ad3bfbe96ecd1fdefcbffdbf8dff75a9dfeeff7e7effddfa57febed37dfeeadc7fefdcbdfdf9c67fdffddfd7fffbc3c7f271197eded5ebffdf7dbbedfeeebe7356b6fffff5fb5fdf7beffdffefdd14efff6dcbdf7ffbfffcbddfdb6bfaf7c74ffccedc5ffee572fffdf5cee64dfedffd36b2777bffff4bb1ffdef7fff367ff13bfecf36ed9bb7fd5ffaffedfffffcfffebdfbeff4efffef9ebfe", 379, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 97
+    bigint_from_hex(&int1, "860f4807a05a48ce971d4530d3ed097fd44adc0783b43384cc290729fe247d0ab8f68e7616e7602bfa20912255b7e386f2027fa41466a7ff3abc10d54357134aa98d4c7503a49f797eccf397441808a1a4c06a368178e51118cf6f433b79bf142d7f580147d71faa89ae2cd7c3c773e131dc2caaa76111efa3026a53a251d9e9d05f495c4867160bd25d510d27a7126fad2c79afd6941b94add3f49f6a0fa10d31ce0b72e8bcf331421f82530c6e83c30974abbd77c8e757152e5741f8a67f8629412513ebafa9e9f3b808d96b38b496ab028f0781f51928e2e63a49036a241d744343f268f23ca2447a061", 471, false);
+    bigint_from_hex(&int2, "142e9d78dc373dc88e1e0919249edc766be13813ed480e81ecfd6af318f390531b6af89fb4b5de1ff4eb7b19a399c0f9b27a8b8d5feab49f842bc9eb6ab22b67cc56fb247d4896d1ff6bb9aa2bc54b8f25bd66d9e6ad7a15e4d077c1fe601a9010111eed48db14060a768f5801c348f87f2d06ee9458dcace2b7873fc5c5602ef280dcb6b38c7013151a6d329b404aa614686f3da50f088fdf25fcfa759b13659e2a55b92bc10ac2ea2a015feee3756c5f9b79922c6fd8491ccf03a468c27698cedb9a0e35af72aab9701b669b8584b5f33d1a7c", 424, false);
+    bigint_from_hex(&reference, "860f4807a05a48ce971d4530d3ed097fd44adc0783b43385cee9d7adff77fd8af9f69ff65fefe76ffe33913ed5b7eb9effd6ffb59f7fa7ffbebf99ff4b5ff3ffefbffdff3bbc9ffb7fecfbd7febb49f9e6fcfeb6ab7af77dddefff47fff9ff1fffffdaa3ffd7bffadbfe6ddfebd7f3ff7ddf7cbfe761b9efa313eed7aff1d9e9f77ffddc5c779f8ff2dd7fed67afdaefaf7c7bffded61bffaddfffff7acfa13d71eedb7bfcbcfb71469ff3db5cfe8bfffb7fefbf7ff9f75ff7af5fd3fcb6ffaeabe135ffefbfffedfbbf99fbeffdb497eff2bf478df779acefffbaeb5bff2ebff743f7fbf8fa7fff77fba7d", 471, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 98
+    bigint_from_hex(&int1, "1d90d3396a73eed48348b1082d5f761a296f2cb8809c9eba8a9e0317de50f8d979eb2ae59c99029169d0eae895204a8", 95, false);
+    bigint_from_hex(&int2, "2df9e28be58deac6f2e4a3ffc70ff2e8feace9f16b6973f123b237dad99e16994165835d8a627f303463c07a551c225edc19838ffd58171be5d5af6b398a8e57296330ecf295bee88209c153c385707a79a4d60f6826691af400f432f61bdb969f841df83a23b86a7926fd292b4fd136327fa577466492cbadd3a1803f2a58a", 255, false);
+    bigint_from_hex(&reference, "2df9e28be58deac6f2e4a3ffc70ff2e8feace9f16b6973f123b237dad99e16994165835d8a627f303463c07a551c225edc19838ffd58171be5d5af6b398a8e57296330ecf295bee88209c153c385707a7db4d73f6a77efdef748f53aff5fff9ebfef3df8babfbefafbbeff3fff5ff9ff7bffaff7defd92dbedd3ebe8bf2a5aa", 255, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 99
+    bigint_from_hex(&int1, "1b83d0231a7be0886f3efd7ec78", 27, false);
+    bigint_from_hex(&int2, "46ff21caf3d03f002f9ea450d8559f1a8436dcaa4a092300d457c894f53fedcad237345b7006b731911fb4a867faba70d9ed0b2e7e3a504a7f06ddb8579130822b5afaec32f9924e65a863f638771ccfb7dda227ba2b59614a8c689fe9da2e", 190, false);
+    bigint_from_hex(&reference, "46ff21caf3d03f002f9ea450d8559f1a8436dcaa4a092300d457c894f53fedcad237345b7006b731911fb4a867faba70d9ed0b2e7e3a504a7f06ddb8579130822b5afaec32f9924e65a863f638771ccfb7ddba3fba3bffff4a8efbfffffe7e", 190, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+    // test 100
+    bigint_from_hex(&int1, "1fc65e6b19fd04de8e7659ba64fa72d519", 34, false);
+    bigint_from_hex(&int2, "2a242bfcd0609c240bc1ecbfb94d274fbf23fb2ed71151a6777a9cf1fa60ae3bc6a6237ccbc21b842bd36098882939e95f8d3a7a4a26e38032ec383493996a269eab41ec0584", 140, false);
+    bigint_from_hex(&reference, "2a242bfcd0609c240bc1ecbfb94d274fbf23fb2ed71151a6777a9cf1fa60ae3bc6a6237ccbc21b842bd36098882939e95f8d3a7a4a3fe7de7bfdfd34df9f7e7fbeeffbfed59d", 140, false);
+    bigint_or(&integer, &int1, &int2);
+    if(bigint_compare(&reference, &integer) != 0)
+        return -1;
+
+}

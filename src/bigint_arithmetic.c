@@ -4,6 +4,29 @@
 
 #include "../include/bigint.h"
 
+void bigint_not(bigint *integer) {
+    for(int i = 0; i < BIGINT_MAX_WORDS; i++)
+        integer->words[i] = ~integer->words[i];
+}
+
+void bigint_and(bigint *integer, const bigint *a, const bigint *b) {
+    bigint_set_zero(integer);
+    for(int i = 0; i < BIGINT_MAX_WORDS; i++)
+        integer->words[i] = a->words[i] & b->words[i];
+}
+
+void bigint_or(bigint *integer, const bigint *a, const bigint *b) {
+    bigint_set_zero(integer);
+    for(int i = 0; i < BIGINT_MAX_WORDS; i++)
+        integer->words[i] = a->words[i] | b->words[i];
+}
+
+void bigint_xor(bigint *integer, const bigint *a, const bigint *b) {
+    bigint_set_zero(integer);
+    for(int i = 0; i < BIGINT_MAX_WORDS; i++)
+        integer->words[i] = a->words[i] ^ b->words[i];
+}
+
 void bigint_add(bigint *integer, const bigint *a, const bigint *b) {
     bigint bsum;
     bigint_set_zero(&bsum);
@@ -76,4 +99,18 @@ void bigint_shift_right(bigint *integer, u32 bits) {
     }
 
     bigint_copy(integer, &tmp);
+}
+
+void bigint_multiply(bigint *integer, const bigint *a, const bigint *b) {
+    bigint_set_zero(integer);
+    if(bigint_is_zero(a) || bigint_is_zero(b))
+        return;
+    for(int i = 0; i < BIGINT_MAX_WORDS; i++) {
+        u32 carry = 0;
+        for(int j = 0; j < BIGINT_MAX_WORDS; j++) {
+            u64 product = (u64)a->words[i] * (u64)b->words[j] + (u64)integer->words[i+j] + (u64)carry;
+            integer->words[i+j] = product & 0xffffffff;
+            carry = product >> BIGINT_WORD_SIZE;
+        }
+    }
 }
